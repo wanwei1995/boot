@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" INFO="false">
+    <contextName>logback</contextName>
+    <property name="log.file" value="/data/logs/ww" />
+    <!-- 输出到控制台 -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd} %d{HH:mm:ss.SSS} %-5level --- [%thread] %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!--输出到文件 -->
+    <appender name="file"
+        class="ch.qos.logback.core.rolling.RollingFileAppender" >
+        <file>${log.file}/ema.log</file>
+        <!--根据大小进行分割日志  每满10MB新建一个日志文件，最多到10个后清除旧日志文件-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy"> 
+　　　　　　　　　　　　　　<fileNamePattern>${log.file}/ema.log.%i</fileNamePattern> 
+　　　　　　　　　　　　　　<minIndex>1</minIndex> 
+　　　　　　　　　　　　　　<maxIndex>10</maxIndex> 
+　　　　　　　　　　　　</rollingPolicy> 
+　　　　　　　　　　　　<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy"> 
+　　　　　　　　　　　　　　<maxFileSize>10MB</maxFileSize> 
+　　　　　　　　　　　　</triggeringPolicy>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <encoder>
+            <pattern>%msg%n</pattern>
+        </encoder>
+    </appender>
+    <logger name="com.topideal.supplychain.tms.log.service.Impl.ExpInvokeLogServiceImpl"
+        additivity="true">
+        <appender-ref ref="file" />
+    </logger>
+    
+     <!--输出到文件 -->
+    <appender name="file1"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.file}/console.log</file>
+           <!--根据时间进行分割日志-->
+<!--        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"> -->
+<!--            <fileNamePattern>log/log.log.%d{yyyy-MM-dd}</fileNamePattern> -->
+<!--                        最多保留最近30天的 -->
+<!--            <maxHistory>30</maxHistory> -->
+<!--                        所有日志文件不能超过1GB，超过则自动清除旧日志 -->
+<!--            <totalSizeCap>1GB</totalSizeCap> -->
+<!--        </rollingPolicy> -->
+        <!--根据大小进行分割日志-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy"> 
+　　　　　　　　　　　　　　<fileNamePattern>log/log.log.%i</fileNamePattern> 
+　　　　　　　　　　　　　　<minIndex>1</minIndex> 
+　　　　　　　　　　　　　　<maxIndex>10</maxIndex> 
+　　　　　　　　　　　　</rollingPolicy> 
+
+　　　　　　　　　　　　<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy"> 
+　　　　　　　　　　　　　　<maxFileSize>100MB</maxFileSize> 
+　　　　　　　　　　　　</triggeringPolicy> 
+            <encoder>
+            <pattern>%d{yyyy-MM-dd} %d{HH:mm:ss.SSS} %-5level --- [%thread] %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+<!-- 指定什么日志以及什么级别的日志输出 -->
+   <root level="INFO">
+        <appender-ref ref="console" />
+        <appender-ref ref="file1" />
+    </root>
+</configuration>

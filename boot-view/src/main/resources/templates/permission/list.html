@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+
+<HEAD>
+<TITLE>权限管理</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="zTree/css/demo.css">
+<link rel="stylesheet" href="zTree/css/zTreeStyle/zTreeStyle.css">
+<script type="text/javascript" src="zTree/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="zTree/js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="zTree/js/jquery.ztree.excheck.js"></script>
+</HEAD>
+<BODY>
+	<input type="text" id="test" name="test" th:value="${roleId}"
+		style="display: none;" />
+	<div>
+		<div class="content_wrap" style="width: 400px;">
+			<div class="top">
+				<form novalidate="novalidate">
+					<fieldset
+						style="width: 400px; border: 1px solid; margin-top: 5px; border-color: #74B2E2; border-radius: 6px">
+						<input id="roleId" name="roleId" value="63" type="hidden">
+						<legend
+							style="color: #2779AA; width: 30%; border-bottom: 0px; margin-left: 12px;">
+							<b>角色信息</b>
+						</legend>
+						<div style="margin-left: 30px">
+							<div style="display: inline;">名称:</div>
+							<div style="display: inline;">系统管理员</div>
+						</div>
+						<div
+							style="margin-left: 30px; margin-top: 10px; margin-bottom: 10px;">
+							<div style="display: inline;">编码:</div>
+							<div style="display: inline;">system</div>
+						</div>
+					</fieldset>
+
+					<fieldset
+						style="width: 400px; height: 300px; border: 1px solid; margin-top: 10px; border-color: #74B2E2; border-radius: 6px 6px 6px 6px">
+						<legend
+							style="color: #2779AA; width: 30%; border-bottom: 0px; margin-left: 12px;">
+							<b>权限信息</b>
+						</legend>
+						<div class="zTreeDemoBackground left" style="margin-left: 10px">
+							<ul id="treeDemo" class="ztree"></ul>
+						</div>
+					</fieldset>
+					<div id="loading" style="margin-top: 10px;">
+						<div class="ui buttons">
+							<button class="ui red button" type="button" onclick="save()">保存</button>
+						</div>
+						<div class="ui buttons">
+							<button class="ui white button" type="reset"
+								onclick="closeWindow()">退出</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</BODY>
+
+</HTML>
+<SCRIPT type="text/javascript">
+	var setting = {
+		view : {
+			selectedMulti : false
+		},
+		check : {
+			enable : true
+		},
+		data : {
+			simpleData : {
+				enable : true
+			}
+		},
+		callback : {
+			onCheck : onCheck
+		}
+	};
+	s = "";
+	flag = 0;
+	function onCheck(e, treeId, treeNode) {
+		s = "";
+		flag = 1;
+		var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+		bb = treeObj.getCheckedNodes(true);
+		for (var i = 0, l = bb.length; i < l; i++) {
+			s += bb[i].id + ',';
+		}
+		s = s.substring(0, s.length - 1);
+	}
+	$(function() {
+		var zNodes;
+		var roleId = $("#test").val();
+		$.ajax({
+			url : "permission/list",
+			type : "POST",
+			data : {
+				"roleId" : roleId
+			},
+			cache : false,
+			success : function(data) {
+				var objs = jQuery.parseJSON(data);
+				zNodes = objs;
+				$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+			},
+			error : function() {
+				alert("error");
+			}
+		});
+	})
+	function closeWindow() {
+		layer.closeAll('page');
+	}
+	function save() {
+		if (flag == 0) {
+			alert("您还没对权限进行任何修改，请修改后再保存！");
+		} else {
+			if (confirm("确定提交？") == true) {
+				var roleId = $("#test").val();
+				s = roleId + '#' + s;
+				$.ajax({
+					type : "GET",
+					url : "role/update",
+					data : {
+						"ids" : s
+					},
+					cache : false,
+					timeout : 600000,
+					success : function(data) {
+						alert("权限修改成功!如无其他操作请退出页面!");
+					},
+					error : function(jqXHR, textStatus, errorThrown) {
+						alert("权限修改失败!");
+					}
+				});
+			} else {
+				alert("已取消！");
+			}
+		}
+	}
+</SCRIPT>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html >
+<head th:replace="menu/import::semantic">
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>控制台</title>
+</head>
+<body>
+<div class="ui two column doubling stackable grid container">
+        <div class="column" style="background-color: #AEDD81">
+        <p></p>
+            <div class="ui container">
+                <button class="ui twitter button" type="button"
+                    onclick="makeData()">
+                    <i class="twitter icon"></i>刷数据
+                </button>
+                <button class="ui loading button" id = "load" style = "display:none">
+                </button>
+            </div>
+            <div class="ui container">
+                <button class="ui twitter button" type="button"
+                    onclick="makeMd5Data()">
+                    <i class="twitter icon"></i>刷MD5数据
+                </button>
+                <button class="ui loading button" id = "loadMd5" style = "display:none">
+                </button>
+            </div>
+
+            <div class="ui container" style = "margin-top :50px">
+                
+            </div>
+
+        </div>
+        <div class="column" style="background-color: #FC9D99; height: 1000px">
+         
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript">
+    function makeData() {
+        $("#load").show();
+            $.ajax({
+                type : "GET",
+                url : "console/makeData",
+                cache : false,
+                timeout : 600000,
+                success : function(data) {
+                	$("#load").hide();
+                    alert("已刷完"+"\n"+data);
+                },
+                error : function(jqXHR, textStatus, errorThrown) {
+                	$("#load").hide();
+                    alert("数据处理失败    "+jqXHR.responseText);
+                    window.location.reload();
+                }
+            });
+        
+    }
+    
+    function makeMd5Data() {
+        $("#loadMd5").show();
+            $.ajax({
+                type : "GET",
+                url : "console/makeMd5Data",
+                cache : false,
+                timeout : 600000,
+                success : function(data) {
+                    $("#loadMd5").hide();
+                    alert("已刷完"+"\n"+data);
+                },
+                error : function(jqXHR, textStatus, errorThrown) {
+                    $("#loadMd5").hide();
+                    alert("数据处理失败    "+jqXHR.responseText);
+                    window.location.reload();
+                }
+            });
+        
+    }
+</script>
+
+</html>

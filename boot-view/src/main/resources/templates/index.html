@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="menu/import::semantic">
+
+<title id="title">功能管理系统</title>
+</head>
+<body>
+<div class="layui-layout layui-layout-admin">
+  <div th:replace="menu/menu::menu" />
+   <div class="layui-body" style="overflow:-Scroll;overflow-y:hidden">
+    <div id="body"
+        style="display: block; padding-left: 0px; padding-right: 0px; padding-top: 0px;height: 95%">
+        <div id="tab" class="ui top attached tabular menu" style ="font-size:90%;">
+          <a class="active item" data-tab="index">首页</a>
+        </div>
+        <div class="ui bottom attached active tab segment main container" data-tab="index" style="padding-top :100px">
+          <h3 class="ui header">欢迎使用功能管理系统</h3>
+        </div>
+    </div>
+  </div>
+  <div th:replace="menu/footer::footer" />
+</div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org" >
+<head >
+<title>人员信息导入</title>
+</head>
+<link rel="stylesheet" href="../semantic/semantic.min.css"/>
+<script src="../js/jquery.min.js"></script>
+<script src="../semantic/semantic.min.js"></script>
+<body class="layui-layout-body">
+	<div class="ui main container">
+		<div class="ui segment">
+			<form class="ui form" id="uploadForm" method="POST"
+				th:action="@{'/personManage/createFromExcel'}"
+				enctype="multipart/form-data">
+				<h4 class="ui dividing header">文件上传</h4>
+
+				<div class="inline field">
+					<label for="">文件</label> <input type="file" name="myFileName"
+						id="myFileName" value="上传文件" />
+				</div>
+
+				<button class="ui primary button" type="button"
+					onclick="importExcel();">上传</button>
+			</form>
+		</div>
+	</div>
+	<script type="text/javascript">
+
+function importExcel(){
+	var excelPath = document.getElementById("myFileName").value;  
+    if(excelPath == null || excelPath == ''){  
+        alert("请选择要上传的Excel文件");  
+        return;  
+    }else{  
+        var fileExtend = excelPath.substring(excelPath.lastIndexOf('.')).toLowerCase();   
+        if(fileExtend == '.xls'|| fileExtend == '.xlsx'){  
+        	 document.getElementById("uploadForm").submit();
+        }else{  
+            alert("文件格式需为'.xls'或者'xlsx'格式!");  
+            return;  
+    	}  
+    }
+   
+}
+
+</script>
+</body>
+</html>

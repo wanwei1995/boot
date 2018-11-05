@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="menu/import::semantic">
+<title>功能管理系统</title>
+</head>
+<body>
+	<div class="ui middle aligned center aligned grid" style = "width :380px;position: absolute;left:40%;top:15%;">
+		<div class="column">
+			<div class="ui items">
+				<img th:src="@{/images/logo.png}" src="/images/logo.png" />
+				<div class="item">
+					<div class="bottom aligned content">
+						<div class="header">功能管理系统</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="ui message" th:classappend="${msgType}"
+				th:if="${resultMsg} != null">
+				<div class="content">
+					<p th:text="${resultMsg}"></p>
+				</div>
+			</div>
+			<form th:action="@{/doLogin}" method="post" class="ui large form">
+				<div class="ui stacked segment">
+					<div class="ui field">
+						<div class="ui left icon input">
+							<i class="user icon"></i> <input type="text" name="userName"
+								th:value="${userName}" placeholder="用户名">
+						</div>
+					</div>
+
+					<div class="ui field">
+						<div class="ui left icon input">
+							<i class="lock icon"></i> <input type="password" name="password"
+								placeholder="密码">
+						</div>
+					</div>
+
+					<input type="submit" value="登录" class="ui fluid large red button">
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+  $(function() {
+    var self = window;
+    var top = window.parent.parent.parent;
+    if (top != self) {
+      top.location = self.location;
+    }
+  });
+</script>
+</html>

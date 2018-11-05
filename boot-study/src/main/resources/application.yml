@@ -1,0 +1,41 @@
+#sql
+spring:
+  profiles:
+    active: prod
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://10.0.0.10:3306/manage?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
+    username : root
+    password : 123456
+#redis
+  redis:
+    database: 0
+    host: 10.0.0.10
+    port: 6379
+    pool:
+      max-active: 8
+      max-wait: -1
+      max-idle: 8
+      min-idle: 0
+    timeout: 0
+    namespace: ww
+#dubbo
+#  dubbo:
+#    application: 
+#      name: dubbo
+#    registry: 
+#    address: zookeeper://10.0.0.10:2181?backup=10.0.0.10:2181
+#    server: true
+#    protocol:
+#      name: dubbo
+#      port: 20881
+#    scan: com.ww.springboot.boot.*
+##MQ
+  rabbitmq: 
+    application:
+      name: rabbitmq
+    host: 10.0.0.10
+    port: 5672
+    username: test
+    password: test
+    virtual-host: boot

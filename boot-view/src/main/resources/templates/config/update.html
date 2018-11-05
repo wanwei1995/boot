@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+
+<head th:replace="base/layout::header( ~{::title})">
+<meta charset="UTF-8">
+<title id="title">修改页面</title>
+
+<script
+	src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
+<script
+	src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+</head>
+
+<body>
+	<div class="ui modal" id="addDiv" style="overflow: auto;">
+		<form th:action=@{/config/update} id="filterForm"
+			class="ui form" method="post" th:fragment="detailContent">
+			<input type="text"
+                          name="id" id="id" th:value = "${configuration.id}" style = "display:none">
+			<div class="three fields">
+                <div class="field">
+                    <label>参数名:</label> <input type="text"
+                          name="configNo" id="configNo" th:value = "${configuration.configNo}" required>
+                </div>
+
+                <div class="field">
+                    <label>参数值:</label><input type="text"
+                        name="value" id="value" th:value = "${configuration.value}" required>
+                </div>
+                <div class="field">
+                    <label>参数描述:</label> <input type="text"
+                         name="descrC" id="descrC" th:value = "${configuration.descrC}">
+                </div>
+            </div>
+            <div style="float: left; margin-top: 150px">
+                <div class="ui buttons">
+                    <button class="ui red button" type="submit">保存</button>
+                </div>
+                <div class="ui buttons">
+                    <button class="ui red button" type="button" onclick="clearIs()">重置
+                    </button>
+                </div>
+            </div>
+		</form>
+	</div>
+</body>
+</html>

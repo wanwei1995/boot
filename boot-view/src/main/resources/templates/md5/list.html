@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="menu/import::semantic">
+<meta charset="UTF-8" />
+<title>MD5加解密</title>
+</head>
+<body>
+	<div class="ui two column doubling stackable grid container">
+		<div class="column" style="background-color: #AEDD81">
+			<p>MD5解密</p>
+			
+			<div class="ui main container">
+			<div class="inline fields">
+                        <div class="field">
+                            <label>参数名</label> <input type="text" name="configNo"
+                                placeholder="..." />
+                        </div>
+            </div>
+				<div class="field">
+                            <label>密文</label> <input type="text" name="configNo"
+                                placeholder="..."  />
+                </div>
+             
+                
+                <div class="field">
+                            <label>明文</label> <input type="text" name="configNo"
+                                placeholder="..." />
+                </div>
+			</div>
+
+			<div class="ui container" style = "margin-top :50px">
+				
+			</div>
+
+		</div>
+		<div class="column" style="background-color: #FC9D99; height: 1000px">
+			<p>发送邮件区域</p>
+			<p></p>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	function sendWeeklyEmail() {
+		if (confirm("确定发送周报吗？\n请确认！") == true) {
+			$.ajax({
+				type : "GET",
+				url : "email/sendWeekly",
+				cache : false,
+				timeout : 600000,
+				success : function(data) {
+					alert("已发送");
+				},
+				error : function(jqXHR, textStatus, errorThrown) {
+					alert("发送失败    "+jqXHR.responseText);
+					window.location.reload();
+				}
+			});
+		} else {
+			alert("已取消！");
+		}
+	}
+	
+	function sendRestEmail() {
+        if (confirm("确定发送调休申请吗？\n请确认！") == true) {
+            $.ajax({
+                type : "GET",
+                url : "email/sendRest",
+                cache : false,
+                timeout : 600000,
+                success : function(data) {
+                    alert("已发送");
+                },
+                error : function(jqXHR, textStatus, errorThrown) {
+                    alert("发送失败    "+jqXHR.responseText);
+                    window.location.reload();
+                }
+            });
+        } else {
+            alert("已取消！");
+        }
+    }
+</script>
+</html>

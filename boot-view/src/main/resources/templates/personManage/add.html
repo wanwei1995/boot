@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="menu/import::semantic">
+<meta charset="UTF-8" />
+<title id="title">系统参数添加页面</title>
+</head>
+<body>
+	<div class="ui modal" id="addDiv" style="overflow: auto;">
+		<form th:action="@{/personManage/add}" id="filterForm" class="ui form"
+			method="post" th:fragment="addContent">
+			<div class="three fields">
+				<div class="field">
+					<label>人名</label> <input type="text" name="personName" required />
+				</div>
+
+				<div class="field">
+					<label>状态：</label>
+					<div class="ui fluid search selection dropdown"
+						style="width: 150px">
+						<input type="hidden" name="status">
+						<div class="default text">--请选择--</div>
+						<i class="dropdown icon"></i>
+						<div class="menu">
+                                    <div class="item" data-value="">--请选择--</div>
+                                    <div class="item"
+                                        th:each="statusEnum : ${T(com.ww.springboot.boot.common.PersonManageEnum.statusEnum).values()}"
+                                        th:data-value="${statusEnum.value}"
+                                        th:text="${statusEnum.name}"></div>
+                                </div>
+					</div>
+				</div>
+			</div>
+			<div style="float: left; margin-top: 150px">
+				<div class="ui buttons">
+					<button class="ui red button" type="submit">保存</button>
+				</div>
+				<div class="ui buttons">
+					<button class="ui red button" type="button" onclick="clearIs()">重置
+					</button>
+				</div>
+			</div>
+			<script type="text/javascript">
+				$(function() {
+					$(".ui.dropdown").dropdown();
+				})
+			</script>
+		</form>
+	</div>
+</body>
+
+</html>

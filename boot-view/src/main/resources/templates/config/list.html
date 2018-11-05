@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="menu/import::semantic">
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>系统参数管理页面</title>
+</head>
+<body class="layui-layout-body">
+	<div class="layui-body" style="margin-top: 20px">
+		<!-- 内容主体区域 -->
+		<div class="ui main container">
+			<div class="ui clearing segment">
+				<form th:action="@{/config}" id="filterForm" class="ui form"
+					method="get">
+					<div class="inline fields">
+						<div class="field">
+							<label>参数名</label> <input type="text" name="configNo"
+								placeholder="..." th:value="${config.configNo}" />
+						</div>
+						<div class="field">
+							<label>参数值</label> <input type="text" name="value"
+								placeholder="..." th:value="${config.value}" />
+						</div>
+						<div class="field">
+							<label>参数描述</label> <input type="text" name="descrC"
+								placeholder="..." th:value="${config.descrC}" />
+						</div>
+						<div class="ui buttons">
+							<button class="ui red button" type="submit">查询</button>
+						</div>
+						<div class="ui buttons">
+							<button id="clear" class="ui white button" type="button"
+								onclick="clearIs()">重置</button>
+						</div>
+					</div>
+				</form>
+			</div>
+
+			<div class="ui buttons">
+				<button class="ui red button" type="button" onclick="addDetail()">
+					添加</button>
+			</div>
+			<div class="ui buttons">
+				<button class="ui red button" type="button" onclick="doDelect()">移除</button>
+			</div>
+			<div class="ui buttons">
+				<button class="ui red button" type="button" onclick="doClear()">清空缓存</button>
+			</div>
+
+			<div style="overflow: auto; margin-top: 5px">
+				<form action="#" id="form" class="ui form" method="post">
+					<table class="ui red table">
+						<thead>
+							<tr class="single line">
+								<th><input type="checkbox" name="chk_all" id="chk_all"
+									class="check_article" /></th>
+								<th>参数名</th>
+								<th>参数描述</th>
+								<th>参数值</th>
+								<th>创建时间</th>
+								<th>创建人</th>
+								<th>更改时间</th>
+								<th>更改人</th>
+							</tr>
+						</thead>
+						<tbody th:if="${list}">
+							<tr th:each="config : ${list}">
+								<td><input type="checkbox" id="chk_list" name="chk_list"
+									class="check_article" th:value="${config.id}" /></td>
+								<td><a href="#" th:onclick="'Getdetail(\'' + ${config.id} + '\');'"
+                                    th:text="${config.configNo}"></a></td>
+								<td th:text="${config.descrC}"></td>
+								<td th:text="${config.value}"></td>
+								<td
+									th:text="${#calendars.format(config.createTime,'yyyy-MM-dd HH:mm:ss')}"></td>
+								<td th:text="${config.createBy}"></td>
+								<td
+									th:text="${#calendars.format(config.updateTime,'yyyy-MM-dd HH:mm:ss')}"></td>
+								<td th:text="${config.updateBy}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	function clearIs() {
+		$("input").each(function() {
+			var value = $(this).val("");
+		});
+	}
+
+	$(function() {
+		//全选和全不选
+		$('#chk_all').bind('click', function() {
+			if (this.checked) { //全选
+				$("input[name='chk_list']").each(function() {
+					$(this).prop('checked', true);
+				})
+			} else { //全不选
+				$("input[name='chk_list']").each(function() {
+					$(this).prop('checked', false);
+				})
+			}
+		});
+		//所有的子项选中或者不全选中后，全选按钮也选中或者不选中
+		var allLength = $("input[name='chk_list']").length; //所有的checkbox的长度
+		$("input[name='chk_list']")
+				.each(
+						function() {
+							$(this)
+									.bind(
+											'click',
+											function() {
+												var selectedLength = $("input[name='chk_list']:checked").length;//所有的选中的checkbox的长度
+												if (selectedLength == allLength) {
+													$('#chk_all').prop(
+															"checked", true);//全选按钮
+												} else {
+													$('#chk_all').prop(
+															"checked", false);
+												}
+
+											})
+
+						})
+	})
+
+	function addDetail() {
+		$.ajax({
+			type : "GET",
+			url : "config/addpre",
+			cache : false,
+			timeout : 600000,
+			success : function(data) {
+				layer.open({
+					type : 1,
+					title : '系统参数添加页面',
+					skin : 'layui-layer-rim', //样式类名
+					anim : 2,
+					area : [ '800px', '400px' ], //宽高
+					shadeClose : false, //开启遮罩关闭
+					content : data
+				});
+			},
+		});
+	}
+
+	function doDelect() {
+		obj = document.getElementsByName("chk_list");
+		s = "";
+		for (var i = 0; i < obj.length; i++) {
+			if (obj[i].checked)
+				s += obj[i].value + ','; //如果选中，将value添加到变量s中 
+		}
+		s = s.substring(0, s.length - 1);
+		if (s == "") {
+			alert("请勾选需要删除的信息！");
+		} else {
+			if (confirm("您真的确定要删除吗？\n请确认！") == true) {
+				$.ajax({
+					type : "GET",
+					url : "config/delete",
+					data : {
+						"ids" : s
+					},
+					cache : false,
+					timeout : 600000,
+					success : function(data) {
+						window.location.reload();
+						$("input[name='chk_all']").each(function() {
+							$(this).prop('checked', false);
+						})
+						$("input[name='chk_list']").each(function() {
+							$(this).prop('checked', false);
+						})
+					},
+					error : function(jqXHR, textStatus, errorThrown) {
+						window.location.reload();
+					}
+				});
+
+			} else {
+
+				alert("已取消！");
+			}
+		}
+
+	}
+
+	function doClear() {
+		$.ajax({
+			type : "GET",
+			url : "config/clear",
+			cache : false,
+			timeout : 600000,
+			success : function(data) {
+				alert("成功!");
+				window.location.reload();
+				
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				alert("失败!");
+				window.location.reload();
+			}
+
+		});
+	}
+	
+	function Getdetail(id) {
+	    $.ajax({
+	        type: "GET",
+	        url: "config/queryDetial",
+	        data: {id},
+	        cache: false,
+	        timeout: 600000,
+	        success: function (data) {
+	            layer.open({
+	              type: 1,
+	              title: '修改页面',
+	              skin: 'layui-layer-rim', //样式类名
+	              anim: 2,
+	              area: ['800px', '400px'], //宽高
+	              shadeClose: false, //开启遮罩关闭
+	              content: data
+	            });
+	        },
+	        error: function (jqXHR, textStatus, errorThrown) {
+	            alert("error");
+	            alert(jqXHR.responseText);
+	        }
+	    });
+	}
+</script>
+</html>

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+
+<head th:replace="menu/import::semantic">
+<title id="title">更新页面-物流系统</title>
+</head>
+
+<body>
+	<!--  弹窗   修改-->
+	<!-- class="ui modal  segment" -->
+	<div id="updateDiv" th:fragment="updateContent">
+		<form th:action="@{/user/update}" id="updateForm" name="updateForm"
+			class="ui form"
+			style="margin-top: 20px; margin-left: 10px; margin-right: 10px"
+			method="post">
+			<div class="fields">
+				<div class="field">
+					<input type="hidden" name="id" th:value="${user.id}" /> <label>登录名</label>
+					<input type="text" id="loginName" name="loginName" placeholder=""
+						th:value="${user.loginName}" onblur="checkLoginName()" />
+				</div>
+				<div class="field">
+					<label>用户名：</label> <input type="text" id="displayName"
+						name="displayName" placeholder="" th:value="${user.displayName}"
+						onblur="checkDisplayName()" />
+				</div>
+			</div>
+			<div class="fields">
+				<div class="field">
+					<label>过期时间：</label> <input type="text" id="expireTime"
+						name="expireTime" placeholder=""
+						th:value="${#dates.format(user.expireTime,'yyyy-MM-dd')}"
+						onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-MM-dd'})" />
+				</div>
+				<div class="field">
+					<label>密码：</label> <input type="password" id="password"
+						name="password" placeholder="" required="required"/>
+				</div>
+			</div>
+			<label>当前用户所属角色：</label>
+			<div class="ui fluid multiple search selection dropdown">
+				<input name="roleIds" type="hidden" th:value="${defaultValue}">
+				<i class="dropdown icon"></i>
+				<div class="default text">
+					<!-- Default -->
+				</div>
+				<div class="menu">
+					<div class="item" th:each="role : ${roles}"
+						th:data-value="${role.id}" th:text="${role.name}"></div>
+				</div>
+			</div>
+			<div class="ui right floated buttons">
+				<div style="float: left; height: 32px; margin-top: 2px;"
+					id="restoreRole" class="ui grey button">
+					恢复角色
+					<!-- 原有角色 -->
+				</div>
+				<div style="margin-left: 10px; height: 32px; margin-top: 2px;"
+					id="clearRole" class="ui grey button">
+					清除角色
+					<!-- 所有角色 -->
+				</div>
+			</div>
+			<div>
+				<br>
+				<br>
+				<br>
+				<br>
+			</div>
+			<div class="ui right floated buttons ">
+				<button style="margin-left: 10px; height: 32px;"
+					class="ui red button" onclick="update()" type="submit">更新</button>
+			</div>
+		</form>
+	</div>
+
+	<script type="text/javascript">
+		var flagLogin = true;
+		var flagDisplay = true;
+		//判断登录名是否存在
+		function checkLoginName() {
+			var loginName = $("#loginName").val();
+			if(loginName=="") {
+				layer.open({
+					  content: '登录名不能为空！'
+				});
+				flagLogin = false;
+				return ;
+			}
+			
+			flagLogin = true;
+		}
+		function checkDisplayName() {
+			var displayName = $("#displayName").val();
+			if(displayName=="") {
+				layer.open({
+					  content: '用户名不能为空！'
+				});
+				flagDisplay = false;
+				return ;
+			}
+			flagDisplay = true;
+		}
+		
+		function update() {
+			if(flagLogin && flagDisplay) {
+				$("#updateForm").submit();
+			}
+		}
+		
+		$(function(){
+			$(".ui.dropdown").dropdown();
+		});
+		
+		$('#restoreRole').on('click', function() {
+			$('.ui.dropdown').dropdown('restore defaults');
+		});
+		
+		
+		$('#clearRole').on('click', function() {
+			$('.ui.dropdown').dropdown('clear');
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+
+<head th:replace="menu/import::semantic">
+<title id="title">添加页面-物流系统</title>
+<script src="../../static/layer/layer.js" th:src="@{/layer/layer.js}"></script>
+</head>
+
+<body>
+	<!--  弹窗   添加-->
+	<!-- class="ui modal  segment" -->
+	<div id="detailDiv" th:fragment="addContent">
+		<form th:action="@{/role/add}" id="addForm" name="addForm"
+			class="ui form"
+			style="margin-top: 20px; margin-left: 10px; margin-right: 10px"
+			method="post">
+			<div class="fields">
+				<div class="field">
+					<label>角色名称：</label> <input type="text" id="name" name="name"
+						required="required" />
+				</div>
+			</div>
+			<div class="ui left floated buttons">
+				<button class="ui red button" type="submit">保存</button>
+				<button class="ui white button" type="reset">重置</button>
+			</div>
+		</form>
+	</div>
+</body>
+
+</html>

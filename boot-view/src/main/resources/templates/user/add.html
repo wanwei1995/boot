@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+
+<head th:replace="menu/import::semantic">
+<title id="title">添加页面-物流系统</title>
+<script src="../../static/layer/layer.js" th:src="@{/layer/layer.js}"></script>
+</head>
+
+<body>
+	<!--  弹窗   添加-->
+	<!-- class="ui modal  segment" -->
+	<div id="detailDiv" th:fragment="detailContent">
+		<script type="text/javascript">
+			var loginNameFlag = false;
+			var displayNameFlag = false;
+			var passwordFlag = false;
+			var verifyPasswordFlag = false;
+
+			function checkLoginName(current) {
+				var loginName = current.value;
+				if (loginName == "") {
+					$("#content").html("登录名不能为空！");
+					$("#content").css({"color":"red"});
+					$("#content").css("display","none");
+					$("#content").css("display","block");
+					loginNameFlag = false;
+				}  else {
+					$.ajax({
+						type : "GET",
+						url : contextPath+"/user/isExist",
+						data : {"loginName":loginName},
+						traditional : true, 
+						cache : false,
+						timeout : 600000,
+						success : function(data) {
+							if(data=="success") {
+								$("#content").html("");
+								$("#content").css("display","none");
+								$("#content").css("display","block");
+								loginNameFlag = true;
+							} else {
+								$("#content").html("该登录名已存在！");
+								$("#content").css({"color":"red"});
+								$("#content").css("display","none");
+								$("#content").css("display","block");
+								loginNameFlag = false;
+							}
+						},
+						error : function(jqXHR, textStatus, errorThrown) {
+							alert("error");
+							alert(jqXHR.responseText);
+						}
+					});
+				}
+			}
+			
+			function checkDisplayName(current) {
+				if (current.value == "") {
+					$("#content").html("用户名不能为空！");
+					$("#content").css({"color":"red"});
+					$("#content").css("display","none");
+					$("#content").css("display","block");
+					displayNameFlag = false;
+				} else {
+					$("#content").html("");
+					$("#content").css("display","none");
+					$("#content").css("display","block");
+					displayNameFlag = true;
+				}
+				
+			}
+			
+			function checkPassword(current) {
+				if (current.value == "") {
+					$("#content").html("密码不能为空！");
+					$("#content").css({"color":"red"});
+					$("#content").css("display","none");
+					$("#content").css("display","block");
+					passwordFlag = false;
+				} else {
+					$("#content").html("");
+					$("#content").css("display","none");
+					$("#content").css("display","block");
+					passwordFlag = true;
+				}
+			}
+			
+			function checkVerifyPassword(current) {
+				var password = $("#password").val();
+				var verifyPassword = current.value;
+				if (verifyPassword == "") {
+					$("#content").html("确认密码不能为空！");
+					$("#content").css({"color":"red"});
+					$("#content").css("display","none");
+					$("#content").css("display","block");
+					verifyPasswordFlag = false;
+				} else if(password !=verifyPassword){
+					$("#content").html("密码不一致！");
+					$("#content").css({"color":"red"});
+					$("#content").css("display","none");
+					$("#content").css("display","block");
+					verifyPasswordFlag = false;
+				} else {
+					$("#content").html("");
+					$("#content").css("display","none");
+					$("#content").css("display","block");
+					verifyPasswordFlag = true;
+				}
+			}
+			
+			function add() {
+				if(loginNameFlag && displayNameFlag && passwordFlag && verifyPasswordFlag) {
+					$("#addForm").submit();
+				}
+			}
+		</script>
+		<div style="margin-top: 20px; margin-left: 10px; margin-right: 10px;"
+			id="content" class="ui small message"></div>
+		<form th:action="@{/user/add}" id="addForm" name="addForm"
+			class="ui form"
+			style="margin-top: 20px; margin-left: 10px; margin-right: 10px"
+			method="post">
+			<div class="fields">
+				<div class="field">
+					<label>登录名：</label> <input type="text" id="loginName"
+						name="loginName" placeholder="" onblur="checkLoginName(this)"
+						required="required" />
+				</div>
+				<div class="field">
+					<label>用户名：</label> <input type="text" id="displayName"
+						name="displayName" placeholder="" onblur="checkDisplayName(this)"
+						required="required" />
+				</div>
+			</div>
+			<div class="fields">
+				<div class="field">
+					<label>密码：</label> <input type="password" id="password"
+						name="password" placeholder="" onblur="checkPassword(this)"
+						required="required" />
+				</div>
+				<div class="field">
+					<label>确认密码：</label> <input type="password" id="verifyPassword"
+						name="verifyPassword" placeholder=""
+						onblur="checkVerifyPassword(this)" required="required" />
+				</div>
+			</div>
+			<div class="ui left floated buttons">
+				<button class="ui red button" onclick="add()" type="button">保存</button>
+				<!-- <button class="ui white button" type="reset">重置</button> -->
+				<button class="ui white button" type="reset" onclick="closeWindow()">取消</button>
+			</div>
+		</form>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="menu/import::semantic">
+<meta charset="UTF-8" />
+<title>MQ测试页面</title>
+</head>
+<body>
+	<div class="ui two column doubling stackable grid container">
+		<div class="column" style="background-color: #AEDD81">
+			<p>发送MQ消息</p>
+
+			<form th:action="@{mqTest}">
+				<div class="field" style="margin-top: 30px">
+					<label>队列名：</label>
+					<div class="ui fluid search selection dropdown">
+						<input type="hidden" name="routingKey"
+							th:value="${expServiceMsg.routingKey}">
+						<div class="default text">--请选择--</div>
+						<i class="dropdown icon"></i>
+						<div class="menu">
+							<div class="item" data-value="">--请选择--</div>
+							<div class="item"
+								th:each="QueueEnum : ${T(com.ww.springboot.boot.mq.QueueConstants.QueueEnum).values()}"
+								th:data-value="${QueueEnum.queueName}" th:text="${QueueEnum.queueName}"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="field" style="margin-top: 30px">
+					<label>交换机：</label>
+					<div class="ui fluid search selection dropdown">
+						<input type="hidden" name="exName"
+							th:value="${expServiceMsg.exName}">
+						<div class="default text">--请选择--</div>
+						<i class="dropdown icon"></i>
+						<div class="menu">
+							<div class="item" data-value="">--请选择--</div>
+							<div class="item"
+								th:each="ExchangeEnum : ${T(com.ww.springboot.boot.mq.ExchangeEnum).values()}"
+								th:data-value="${ExchangeEnum.exchangeName}"
+								th:text="${ExchangeEnum.exchangeName}"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="field" style="margin-top: 30px">
+					<label>发送消息：</label>
+					<textarea rows='10' style="width: 540px" name="message"
+                            th:text="${expServiceMsg.message}"> </textarea>
+				</div>
+				<div align="center">
+        <div class="ui buttons">
+          <button class="ui red button" type="submit" style="margin-right: 30px">发送
+          </button>
+         
+        </div>
+      </div>
+			</form>
+		</div>
+		<div class="column" style="background-color: #FC9D99; height: 800px">
+			<p>接收MQ消息</p>
+			<div class="field" style="margin-top: 30px">
+				<label>接受消息：</label>
+				<textarea rows='10' style="width: 540px"> </textarea>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+
+$(function () {
+    $(".ui.dropdown").dropdown();
+  })
+	
+</script>
+</html>

@@ -14,5 +14,5 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8480/eureka/  # 此配置必须写在本文件中才能使用通过服务名找到配置中心
+      defaultZone: http://localhost:8480/eureka/  # 此配置必须写在本文件中才能使用通过服务名找到配置中心--先读bootstrap.yml再读application.pro
         

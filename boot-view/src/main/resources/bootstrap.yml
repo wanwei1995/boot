@@ -1,18 +1,18 @@
-spring:
-  cloud:
-    config:
-      #uri: http://localhost:8580   # 配置中心服务的地址
-      discovery:                    # 从注册中心根据名称寻找配置中心
-          enabled: true
-          serviceId: config-server
-      name: application-test   # 要读取的配置文件application属性
-      #label: test
-      #profile: dev # 要读取的配置文件profile属性
-      #label: master   # git 配置文件所在分支
-  application:
-    name: boot-server
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8480/eureka/  # 此配置必须写在本文件中才能使用通过服务名找到配置中心--先读bootstrap.yml再读application.pro
+#spring:
+#  cloud:
+#    config:
+#      #uri: http://localhost:8580   # 配置中心服务的地址
+#      discovery:                    # 从注册中心根据名称寻找配置中心
+#          enabled: true
+#          serviceId: config-server
+#      name: application-test   # 要读取的配置文件application属性
+#      #label: test
+#      #profile: dev # 要读取的配置文件profile属性
+#      #label: master   # git 配置文件所在分支
+#  application:
+#    name: boot-server
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:8480/eureka/  # 此配置必须写在本文件中才能使用通过服务名找到配置中心--先读bootstrap.yml再读application.pro
         

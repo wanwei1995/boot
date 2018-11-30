@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="zTree/css/demo.css">
+<link rel="stylesheet" href="zTree/css/zTreeStyle/zTreeStyle.css">
+<script src="js/jquery.min.js"></script>
+<script type="text/javascript" src="zTree/js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="zTree/js/jquery.ztree.excheck.js"></script>
+<link rel="stylesheet" href="semantic/semantic.min.css"/>
+<script src="semantic/semantic.min.js"></script>
+<script src="js/jquery.js"></script>
+<script src="layer/layer.js"></script>
+<title>导航页</title>
+</head>
+<body>
+	<div class="ui two column doubling stackable grid container">
+		<div class="column" style="background-color: #AEDD81">
+			<p>导航栏</p>
+			<div class="ui container">
+				<fieldset
+                        style="width: 540px; height: 1050px; border: 1px solid; margin-top: 10px; border-color: #74B2E2; border-radius: 6px 6px 6px 6px">
+                        <legend
+                            style="color: #2779AA; width: 30%; border-bottom: 0px; margin-left: 12px;">
+                            <b>导航信息</b>
+                        </legend>
+                        <div class="zTreeDemoBackground left" style="margin-left: 10px">
+                            <ul id="treeDemo" class="ztree"></ul>
+                        </div>
+                    </fieldset>
+			</div>
+
+			<div class="ui container" style = "margin-top :50px">
+				
+			</div>
+
+		</div>
+		<div class="column" style="background-color: #FC9D99; height: 1000px">
+			<p>导航工具栏</p>
+			<div class="ui clearing segment">
+            <form id="filterForm" class="ui form" method="get">
+                <div class="fields">
+                    <div class="field">
+                        <label>关键字：</label> <input type="text" id = "name" name="name" placeholder=""
+                            style='width: 150px;' oninput="searchNode()"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+var setting = {
+		view: {
+            fontCss: getFontCss
+        },
+        check : {
+            enable : false
+        },
+        data : {
+            simpleData : {
+                enable : true
+            }
+        },
+        callback: {
+            onRightClick: onRightClick
+        }
+    };
+$(function() {
+    var zNodes;
+    $.ajax({
+        url : "url/list",
+        type : "POST",
+        cache : false,
+        success : function(data) {
+            var objs = jQuery.parseJSON(data);
+            zNodes = objs;
+            $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+        },
+        error : function() {
+            alert("error");
+        }
+    });
+})
+nodeList = [];
+nodeParent = [];
+function searchNode() {
+	//去除父节点高亮和子节点高亮
+	updateNodes(false)
+	updateParentNodes(false)
+	nodeParent = [];
+	var value = $("#name").val();
+	if(value == ""){
+		return;
+	}
+    var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+    nodeList = zTree.getNodesByParamFuzzy("name", value);
+    findParent(nodeList)
+    //高亮父节点和子节点
+    updateParentNodes(true)
+    updateNodes(true);
+}
+//找到所有父节点
+function findParent(nodeList){
+	var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+	nodeNewList = [];
+	for( var i=0, l=nodeList.length; i<l; i++) {
+		var pId = nodeList[i].pId;
+		if(pId == null){
+			return;
+		}
+		nodeParent.push(pId);
+        nodeNewList = zTree.getNodesByParam("id", parseInt(pId));
+        findParent(nodeNewList);
+    }
+} 
+function updateParentNodes(highlight){
+	var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+	var node = [];
+	//s里面记录的父节点全部高亮
+	for(var i=0, l=nodeParent.length; i<l; i++){
+		node = zTree.getNodesByParam("id", nodeParent[i]);
+		node[0].highlight = highlight;
+		zTree.expandNode(node[0], highlight, null, null, null);
+		zTree.updateNode(node[0]);
+	}
+}
+
+function updateNodes(highlight) {
+    var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+    for( var i=0, l=nodeList.length; i<l; i++) {
+        nodeList[i].highlight = highlight;
+        zTree.updateNode(nodeList[i]);
+    }
+}
+
+function getFontCss(treeId, treeNode) {
+    return (!!treeNode.highlight) ? {color:"#A60000", "font-weight":"bold"} : {color:"#333", "font-weight":"normal"};
+}
+function onRightClick(event, treeId, treeNode) {
+     //右键添加子节点
+     var id = treeNode.id;
+	$.ajax({
+        type : "GET",
+        url : "url/right",
+        cache : false,
+        data : {id},
+        timeout : 600000,
+        success : function(data) {
+            layer.open({
+                type : 1,
+                title : '右键添加子节点',
+                skin : 'layui-layer-rim', //样式类名
+                anim : 2,
+                area : [ '800px', '400px' ], //宽高
+                shadeClose : false, //开启遮罩关闭
+                content : data
+            });
+        },
+    }); 
+}
+function clearIs() {
+    $("input").each(function() {
+        var value = $(this).val("");
+    });
+}
+</script>
+</html>

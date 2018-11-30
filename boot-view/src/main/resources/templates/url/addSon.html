@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8"/>
+<title id="title">添加子节点</title>
+</head>
+<body>
+    <div id="addDiv">
+        <form th:action="@{/url/addSon}" id="filterForm" class="ui form"
+            method="post" th:fragment="addContent">
+            <input type="text" id="pId" name="pId" th:value="${pId}"
+        style="display: none;" />
+            <div class="two fields">
+                <div class="field">
+                    <label>导航名:</label> <input type="text"
+                          name="name" id="name" required>
+                </div>
+                
+                <div class="field">
+                    <label>导航Url:</label><input type="text"
+                        name="url" id="url">
+                </div>
+            </div>
+            <div style="float: left; margin-top: 150px">
+                <div class="ui buttons">
+                    <button class="ui red button" type="submit">保存</button>
+                </div>
+                <div class="ui buttons">
+                    <button class="ui red button" type="button" onclick="clearIs()">重置
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

@@ -1,13 +1,21 @@
 package com.ww.springboot.boot.model;
 
+import java.io.Serializable;
+import java.util.Date;
+
 /**
  * @author wanwei
  * @TODO   导航基础类
  * @date: 2018年11月30日 上午10:05:06 
  */
-public class UrlManage {
+public class UrlManage implements Serializable{
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private Long id;
 	
 	private Long pId;
@@ -20,7 +28,19 @@ public class UrlManage {
 	
 	private String right = "true";
 	
+	private Date createTime;
 	
+	private int clickTimes;
+	
+	
+	
+	public int getClickTimes() {
+		return clickTimes;
+	}
+
+	public void setClickTimes(int clickTimes) {
+		this.clickTimes = clickTimes;
+	}
 
 	public Long getId() {
 		return id;
@@ -73,5 +93,13 @@ public class UrlManage {
 
 	public void setRight(String right) {
 		this.right = right;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 }

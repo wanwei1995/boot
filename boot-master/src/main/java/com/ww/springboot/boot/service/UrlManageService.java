@@ -9,10 +9,12 @@ public interface UrlManageService {
 	
 	List<UrlManage> findAll();
 
-	UrlManage findByPId(String id);
+	UrlManage findByPId(Long id);
 
 	void insert(UrlManage urlManage);
 
-	int selectByPId(Long pId);
+	int selectNumByPId(Long pId);
+
+	void updateClickTimes(Long id);
 
 }

@@ -51,12 +51,26 @@ public class UrlManageController {
 	
 	}
 	
+	/**
+	 * @author wanwei
+	 * @TODO   点击次数
+	 * @date: 2018年11月30日 下午4:15:27
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/click")
+	@ResponseBody
+	public void click(String id, ModelMap map){
+	//
+		urlManageService.updateClickTimes(Long.valueOf(id));
+	}
+	
 	@RequestMapping("/addSon")
 	public ModelAndView addSon(UrlManage urlManage){
 		//根据PId生成id
 		Long pId = urlManage.getpId();
 		//查询父id下有多少个字节点
-		int count = urlManageService.selectByPId(pId);
+		int count = urlManageService.selectNumByPId(pId);
 		//一级目录每个子节点为10个
 		if(pId<10){
 			urlManage.setId(pId*10+count);
@@ -73,6 +87,4 @@ public class UrlManageController {
 		ModelAndView view = new ModelAndView("redirect:/url");
 	    return view;
 	}
-	
-	
 }

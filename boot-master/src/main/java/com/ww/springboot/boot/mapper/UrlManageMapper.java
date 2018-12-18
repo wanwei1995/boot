@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.ww.springboot.boot.model.UrlManage;
 
@@ -16,7 +17,7 @@ public interface UrlManageMapper {
 	public List<UrlManage> findAll();
 	
 	@Select("select id,p_id pId,name,url from md_url where id = #{id}")
-	public UrlManage findByPId(String id);
+	public UrlManage findByPId(Long id);
 
 	@Insert("<script>"
 			+ "insert into md_url (id,p_id,name"
@@ -29,6 +30,10 @@ public interface UrlManageMapper {
 	public void insert(UrlManage urlManage);
 
 	@Select("Select count(*) from md_url where p_id = #{pId}")
-	public int selectByPId(Long pId);
+	public int selectNumByPId(Long pId);
+
+	
+	@Update(" update md_url set click_times = click_times +1 where id = #{id}")
+	public void updateClickTimes(Long id);
 
 }

@@ -83,7 +83,7 @@
           <dd><a href="">安全设置</a></dd>
         </dl>
       </li>
-      <li class="layui-nav-item"><a th:href="@{/logout}">退了</a></li>
+      <li class="layui-nav-item"><a th:href="@{/logout}">退出</a></li>
     </ul>
   </div>
   
@@ -95,21 +95,15 @@
           <a class="" href="javascript:;">home</a>
           <dl class="layui-nav-child">
             <dd><a id = "homeManage" class="item" th:onclick="'load(\'' + @{/home} + '\',this);'" target="_blank">屋图</a></dd>
-            <dd><a id = "urlManage" class="item" th:onclick="'load(\'' + @{/url} + '\',this);'" target="_blank">链接管理</a></dd>
-            <dd><a href="javascript:;">列表三</a></dd>
-            <dd><a href="">超链接</a></dd>
           </dl>
         </li>
-        <li class="layui-nav-item">
-          <a href="javascript:;">解决方案</a>
+        <li class="layui-nav-item layui-nav-itemed">
+          <a class="" href="javascript:;">导航页</a>
           <dl class="layui-nav-child">
-            <dd><a href="javascript:;">列表一</a></dd>
-            <dd><a href="javascript:;">列表二</a></dd>
-            <dd><a href="">超链接</a></dd>
+             <dd><a id = "urlManage" class="item" th:onclick="'load(\'' + @{/url} + '\',this);'" target="_blank">总导航页</a></dd>
+             <dd><a id = "usualUrlManage" class="item" th:onclick="'load(\'' + @{/usualUrl} + '\',this);'" target="_blank">常用导航</a></dd>
           </dl>
         </li>
-        <li class="layui-nav-item"><a href="">云市场</a></li>
-        <li class="layui-nav-item"><a href="">发布商品</a></li>
       </ul>
     </div>
   </div>

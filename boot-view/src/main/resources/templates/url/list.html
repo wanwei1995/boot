@@ -8,7 +8,7 @@
 <script src="js/jquery.min.js"></script>
 <script type="text/javascript" src="zTree/js/jquery.ztree.core.js"></script>
 <script type="text/javascript" src="zTree/js/jquery.ztree.excheck.js"></script>
-<link rel="stylesheet" href="semantic/semantic.min.css"/>
+<link rel="stylesheet" href="semantic/semantic.min.css" />
 <script src="semantic/semantic.min.js"></script>
 <script src="js/jquery.js"></script>
 <script src="layer/layer.js"></script>
@@ -18,36 +18,35 @@
 	<div class="ui two column doubling stackable grid container">
 		<div class="column" style="background-color: #AEDD81">
 			<p>导航栏</p>
+			<p>一级目录1~9 二级目录 10~19 三级目录 1000~1999 四级目录 100000~199999</p>
 			<div class="ui container">
 				<fieldset
-                        style="width: 540px; height: 1050px; border: 1px solid; margin-top: 10px; border-color: #74B2E2; border-radius: 6px 6px 6px 6px">
-                        <legend
-                            style="color: #2779AA; width: 30%; border-bottom: 0px; margin-left: 12px;">
-                            <b>导航信息</b>
-                        </legend>
-                        <div class="zTreeDemoBackground left" style="margin-left: 10px">
-                            <ul id="treeDemo" class="ztree"></ul>
-                        </div>
-                    </fieldset>
+					style="width: 540px; height: 1050px; border: 1px solid; margin-top: 10px; border-color: #74B2E2; border-radius: 6px 6px 6px 6px">
+					<legend
+						style="color: #2779AA; width: 30%; border-bottom: 0px; margin-left: 12px;">
+						<b>导航信息</b>
+					</legend>
+					<div class="zTreeDemoBackground left" style="margin-left: 10px">
+						<ul id="treeDemo" class="ztree"></ul>
+					</div>
+				</fieldset>
 			</div>
 
-			<div class="ui container" style = "margin-top :50px">
-				
-			</div>
+			<div class="ui container" style="margin-top: 50px"></div>
 
 		</div>
 		<div class="column" style="background-color: #FC9D99; height: 1000px">
 			<p>导航工具栏</p>
 			<div class="ui clearing segment">
-            <form id="filterForm" class="ui form" method="get">
-                <div class="fields">
-                    <div class="field">
-                        <label>关键字：</label> <input type="text" id = "name" name="name" placeholder=""
-                            style='width: 150px;' oninput="searchNode()"/>
-                    </div>
-                </div>
-            </form>
-        </div>
+				<form id="filterForm" class="ui form" method="get">
+					<div class="fields">
+						<div class="field">
+							<label>关键字：</label> <input type="text" id="name" name="name"
+								placeholder="" style='width: 150px;' oninput="searchNode()" />
+						</div>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
 </body>
@@ -65,7 +64,8 @@ var setting = {
             }
         },
         callback: {
-            onRightClick: onRightClick
+            onRightClick: onRightClick,
+            beforeMouseDown: beforeMouseDown
         }
     };
 $(function() {
@@ -161,6 +161,25 @@ function onRightClick(event, treeId, treeNode) {
         },
     }); 
 }
+
+var flag = true;
+function beforeMouseDown(treeId, treeNode) {
+	if(treeNode.url == null || treeNode.url == ''){
+	   return;
+	}
+		//右键添加子节点
+	    var id = treeNode.id;
+	   $.ajax({
+	       type : "GET",
+	       url : "url/click",
+	       cache : false,
+	       data : {id},
+	   }); 
+	 Server.Transfer(treeNode.url,true); ;
+	
+}
+
+
 function clearIs() {
     $("input").each(function() {
         var value = $(this).val("");

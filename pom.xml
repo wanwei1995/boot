@@ -44,6 +44,18 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+		
+		<dependency>
+            <groupId>com.hazelcast</groupId>
+            <artifactId>hazelcast</artifactId>
+            <version>3.11</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.hazelcast</groupId>
+            <artifactId>hazelcast-client</artifactId>
+            <version>${hazelcast.version}</version>
+        </dependency>
 
 		<dependency>
 			<groupId>org.apache.poi</groupId>
@@ -152,12 +164,4 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 </project>

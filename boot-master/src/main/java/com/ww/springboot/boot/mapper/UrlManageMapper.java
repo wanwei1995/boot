@@ -17,7 +17,7 @@ public interface UrlManageMapper {
 	public List<UrlManage> findAll();
 	
 	@Select("select id,p_id pId,name,url from md_url where id = #{id}")
-	public UrlManage findByPId(Long id);
+	public UrlManage findById(Long id);
 
 	@Insert("<script>"
 			+ "insert into md_url (id,p_id,name"
@@ -36,4 +36,12 @@ public interface UrlManageMapper {
 	@Update(" update md_url set click_times = click_times +1 where id = #{id}")
 	public void updateClickTimes(Long id);
 
+	
+	@Update(" update md_url set name = #{name},url = #{url} where id = #{id}")
+	public void update(UrlManage urlManage);
+
+	@Select("select md_url.id ,t2.name pName,md_url.name,url ,click_times clickTimes from md_url," + 
+			"(select id,name from md_url) t2 where t2.id = md_url.p_id" + 
+			" order by click_times desc limit 10")
+	public List<UrlManage> findUsualUrl();
 }

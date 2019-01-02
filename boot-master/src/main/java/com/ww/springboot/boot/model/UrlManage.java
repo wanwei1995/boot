@@ -20,6 +20,8 @@ public class UrlManage implements Serializable{
 	
 	private Long pId;
 	
+	private String pName;
+	
 	private String code;
 	
 	private String name;
@@ -101,5 +103,13 @@ public class UrlManage implements Serializable{
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+
+	public String getpName() {
+		return pName;
+	}
+
+	public void setpName(String pName) {
+		this.pName = pName;
 	}
 }

@@ -65,6 +65,54 @@ public class UrlManageController {
 		urlManageService.updateClickTimes(Long.valueOf(id));
 	}
 	
+	/**
+	 * @author wanwei
+	 * @TODO   点击次数
+	 * @date: 2018年11月30日 下午4:15:27
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/addFirst")
+	@ResponseBody
+	public ModelAndView addFirst(){
+		int count = urlManageService.selectNumByPId(0L);
+		UrlManage urlManage = new UrlManage();
+		urlManage.setName("一级目录");
+		urlManage.setId(Long.valueOf(count+1));
+		urlManage.setpId(0L);
+		urlManageService.insert(urlManage);
+		ModelAndView view = new ModelAndView("redirect:/url");
+	    return view;
+	}
+	
+	/**
+	 * @author wanwei
+	 * @TODO   点击次数
+	 * @date: 2018年11月30日 下午4:15:27
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/updatePre")
+	public String updatePre(String id, ModelMap map){
+		UrlManage urlManage = urlManageService.findById(Long.valueOf(id));
+		map.addAttribute("urlManage",urlManage);
+		return "url/update";
+	}
+	
+	/**
+	 * @author wanwei
+	 * @TODO   点击次数
+	 * @date: 2018年11月30日 下午4:15:27
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/update")
+	public ModelAndView update(UrlManage urlManage, ModelMap map){
+		urlManageService.update(urlManage);
+		ModelAndView view = new ModelAndView("redirect:/url");
+	    return view;
+	}
+	
 	@RequestMapping("/addSon")
 	public ModelAndView addSon(UrlManage urlManage){
 		//根据PId生成id
@@ -74,13 +122,11 @@ public class UrlManageController {
 		//一级目录每个子节点为10个
 		if(pId<10){
 			urlManage.setId(pId*10+count);
-		}
-		//二级目录每个子节点为100个
-		if(pId<100){
+		}else if(pId<100){
+			//二级目录每个子节点为100个
 			urlManage.setId(pId*100+count);
-		}
-		//三级目录每个子节点为100个
-		if(pId<10000){
+		}else if(pId<10000){
+			//三级目录每个子节点为100个
 			urlManage.setId(pId*100+count);
 		}
 		urlManageService.insert(urlManage);

@@ -8,6 +8,7 @@
 <script src="js/jquery.min.js"></script>
 <script type="text/javascript" src="zTree/js/jquery.ztree.core.js"></script>
 <script type="text/javascript" src="zTree/js/jquery.ztree.excheck.js"></script>
+<script type="text/javascript" src="zTree//js/jquery.ztree.exedit.js"></script>
 <link rel="stylesheet" href="semantic/semantic.min.css" />
 <script src="semantic/semantic.min.js"></script>
 <script src="js/jquery.js"></script>
@@ -47,6 +48,17 @@
 					</div>
 				</form>
 			</div>
+			<div class="fields">
+                        <button class="ui twitter button" type="button"
+                            onclick="update()">
+                            <i class="twitter icon"></i>修改
+                        </button>
+                        
+                         <button class="ui twitter button" type="button"
+                            onclick="addFirst()">
+                            <i class="twitter icon"></i>添加一级目录
+                        </button>
+                    </div>
 		</div>
 	</div>
 </body>
@@ -65,7 +77,7 @@ var setting = {
         },
         callback: {
             onRightClick: onRightClick,
-            beforeMouseDown: beforeMouseDown
+            beforeMouseDown: beforeMouseDown,
         }
     };
 $(function() {
@@ -84,52 +96,96 @@ $(function() {
         }
     });
 })
-nodeList = [];
-nodeParent = [];
+
+        
+  
+var nodeList = [];
+var nodeParent = [];
+var nodeParentOld = [];
+var i = 0
 function searchNode() {
-	//去除父节点高亮和子节点高亮
-	updateNodes(false)
-	updateParentNodes(false)
-	nodeParent = [];
-	var value = $("#name").val();
-	if(value == ""){
-		return;
-	}
-    var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-    nodeList = zTree.getNodesByParamFuzzy("name", value);
-    findParent(nodeList)
-    //高亮父节点和子节点
-    updateParentNodes(true)
-    updateNodes(true);
+	deal();
 }
+
+var zTree;
+function deal(){
+	zTree = $.fn.zTree.getZTreeObj("treeDemo");
+	//去除父节点高亮和子节点高亮
+    updateNodes(false)
+    updateParentNodes(false)
+    nodeParent = [];
+    var value = $("#name").val();
+    if(value == ""){
+    	nodeList = [];
+    }else{
+    	nodeList = zTree.getNodesByParamFuzzy("name", value);
+    }
+    if(nodeList.length != 0){
+        findParent(nodeList)
+        //高亮父节点和子节点
+        updateParentNodes(true)
+        updateNodes(true);
+    }
+    // nodeParentOld 需要折叠，nodeParent 需要展开,如果nodeParentOld中有nodeParent里面的值则不折叠
+    for(var i=0, l=nodeParentOld.length; i<l; i++){
+    	var flag = true;
+    	for(var j=0, m=nodeParent.length; j<m; j++){
+            if(nodeParent[j] == nodeParentOld[i]){
+            	  flag = false;
+            	  continue;
+            } 
+        }
+    	if(flag){
+    		//折叠
+    		node = zTree.getNodesByParam("id", nodeParentOld[i]);
+            zTree.expandNode(node[0], false, null, null, null); 
+    	}
+    }  
+    
+    for(var i=0, n=nodeParent.length; i<n; i++){
+        //展开
+        node = zTree.getNodesByParam("id", nodeParent[i]);
+        zTree.expandNode(node[0], true, null, null, null); 
+    }  
+    //将nodeParent 赋值给 nodeParentOld 代表下一次需要折叠的
+    nodeParentOld = nodeParent;
+}
+
 //找到所有父节点
 function findParent(nodeList){
-	var zTree = $.fn.zTree.getZTreeObj("treeDemo");
 	nodeNewList = [];
 	for( var i=0, l=nodeList.length; i<l; i++) {
 		var pId = nodeList[i].pId;
 		if(pId == null){
 			return;
 		}
-		nodeParent.push(pId);
-        nodeNewList = zTree.getNodesByParam("id", parseInt(pId));
-        findParent(nodeNewList);
+		//如果已经存在则不再插入
+		var flag = true;
+		for( var j=0, z=nodeParent.length; j<z; j++) {
+			if(nodeParent[j] == pId){
+				flag = false
+				continue;
+			}
+		}
+		if(flag){
+			nodeParent.push(pId);
+	        nodeNewList = zTree.getNodesByParam("id", parseInt(pId));
+	        findParent(nodeNewList);
+		}
     }
 } 
 function updateParentNodes(highlight){
-	var zTree = $.fn.zTree.getZTreeObj("treeDemo");
 	var node = [];
 	//s里面记录的父节点全部高亮
 	for(var i=0, l=nodeParent.length; i<l; i++){
 		node = zTree.getNodesByParam("id", nodeParent[i]);
 		node[0].highlight = highlight;
-		zTree.expandNode(node[0], highlight, null, null, null);
 		zTree.updateNode(node[0]);
 	}
 }
 
+
 function updateNodes(highlight) {
-    var zTree = $.fn.zTree.getZTreeObj("treeDemo");
     for( var i=0, l=nodeList.length; i<l; i++) {
         nodeList[i].highlight = highlight;
         zTree.updateNode(nodeList[i]);
@@ -161,13 +217,10 @@ function onRightClick(event, treeId, treeNode) {
         },
     }); 
 }
-
-var flag = true;
 function beforeMouseDown(treeId, treeNode) {
 	if(treeNode.url == null || treeNode.url == ''){
 	   return;
 	}
-		//右键添加子节点
 	    var id = treeNode.id;
 	   $.ajax({
 	       type : "GET",
@@ -175,9 +228,52 @@ function beforeMouseDown(treeId, treeNode) {
 	       cache : false,
 	       data : {id},
 	   }); 
-	 Server.Transfer(treeNode.url,true); ;
+}
+
+function update() {
+	var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+	nodes = zTree.getSelectedNodes(),
+	treeNode = nodes[0];
+	if (nodes.length == 0) {
+	    alert("请先选择一个节点");
+	    return;
+	}
+	var id = treeNode.id;
+	$.ajax({
+        type : "GET",
+        url : "url/updatePre",
+        cache : false,
+        data : {id},
+        timeout : 600000,
+        success : function(data) {
+            layer.open({
+                type : 1,
+                title : '修改导航信息',
+                skin : 'layui-layer-rim', //样式类名
+                anim : 2,
+                area : [ '800px', '400px' ], //宽高
+                shadeClose : false, //开启遮罩关闭
+                content : data
+            });
+        }
+    }); 
 	
 }
+
+function addFirst() {
+    $.ajax({
+        type : "GET",
+        url : "url/addFirst",
+        cache : false,
+        timeout : 600000,
+        success : function(data) {
+        	alert("添加成功，请刷新");
+        	window.location.reload();
+        }
+    }); 
+    
+}
+
 
 
 function clearIs() {

@@ -1,10 +1,13 @@
 package com.ww.springboot.boot.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ww.springboot.boot.model.UrlManage;
 import com.ww.springboot.boot.service.UrlManageService;
 
 /**
@@ -21,6 +24,9 @@ public class UsualUrlController {
 	
 	@RequestMapping("")
 	public String usualUrl(ModelMap map){
+		
+		List<UrlManage> urlManageList = urlManageService.findUsualUrl();
+		map.addAttribute("urlManageList", urlManageList);
 	    return "url/usual";
 	}
 }

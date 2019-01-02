@@ -9,7 +9,7 @@
     <management-center enabled="true">http://localhost:8080/hazelcast-mancenter
     </management-center>
     <network>
-        <port auto-increment="true" port-count="110">7701</port>
+        <port auto-increment="true" port-count="110">7705</port>
         <outbound-ports>
             <ports>0</ports>
         </outbound-ports>

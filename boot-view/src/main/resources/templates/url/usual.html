@@ -7,17 +7,49 @@
 <title>导航页</title>
 </head>
 <body>
+
+
 	<div class="ui two column doubling stackable grid container">
-        <div class="column" style="background-color: #AEDD81">
-            
-        </div>
-        <div class="column" style="background-color: #FC9D99; height: 1000px">
-           
-        </div>
-    </div>
-	
+		<div class="column" style="background-color: #AEDD81">
+			<p>点击次数排序</p>
+			<ul th:if="${urlManageList}">
+				<li th:each="urlManage : ${urlManageList}" style="height: 55px;list-style: none">
+					<div class="ui compact menu">
+						<a class="item">
+							<button class="ui white button" th:value="${urlManage.url}"
+								th:id="${urlManage.id}" th:text="${urlManage.name}"
+								type="button" onclick="jump(this)"></button>
+							<div class="floating ui red label"
+								th:text="${urlManage.clickTimes}" />
+						</a>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="column" style="background-color: #FC9D99; height: 1000px">
+			<p>待定</p>
+
+		</div>
+	</div>
+
+
 </body>
 <script type="text/javascript">
 
+function jump(target){
+	//记录点击次数
+    var id = target.id;
+   $.ajax({
+       type : "GET",
+       url : "url/click",
+       cache : false,
+       data : {id},
+       success : function(data) {
+           window.location.reload();
+       }
+   }); 
+ //跳转
+   window.open(target.value);
+}
 </script>
 </html>

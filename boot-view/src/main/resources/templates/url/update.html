@@ -1,22 +1,25 @@
 <!doctype html>
 <html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="menu/import::semantic">
+<head>
 <meta charset="UTF-8"/>
-<title id="title">更新Url</title>
+<title id="title">修改子节点</title>
 </head>
 <body>
-    <div class="ui modal" id="addDiv" style="overflow: auto;">
-        <form th:action="@{/url/updateUrl}" id="filterForm" class="ui form"
+    <div id="addDiv">
+        <form th:action="@{/url/update}" id="filterForm" class="ui form"
             method="post" th:fragment="addContent">
-            <div class="three fields">
+            <input type="text" id="id" name="id" th:value="${urlManage.id}"
+        style="display: none;" />
+            <div class="two fields">
                 <div class="field">
-                    <label>旧Url:</label> <input type="text"
-                          name="configNo" id="configNo" required>
+                    <label>导航名:</label> <input type="text"
+                          name="name" id="name" th:value="${urlManage.name}" required>
                 </div>
+                
                 <div class="field">
-                    <label>新Url:</label> <input type="text"
-                          name="configNo" id="configNo">
+                    <label>导航Url:</label><input type="text"
+                        name="url" th:value="${urlManage.url}" id="url">
                 </div>
             </div>
             <div style="float: left; margin-top: 150px">
@@ -31,4 +34,5 @@
         </form>
     </div>
 </body>
+
 </html>

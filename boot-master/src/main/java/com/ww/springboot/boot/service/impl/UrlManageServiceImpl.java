@@ -33,9 +33,9 @@ public class UrlManageServiceImpl implements UrlManageService{
 	}
 
 	@Override
-	public UrlManage findByPId(Long id) {
+	public UrlManage findById(Long id) {
 		// TODO Auto-generated method stub
-		return urlManageMapper.findByPId(id);
+		return urlManageMapper.findById(id);
 	}
 
 	@Override
@@ -60,7 +60,22 @@ public class UrlManageServiceImpl implements UrlManageService{
 		urlManageMapper.updateClickTimes(id);
 		
 	}
-	
-	
 
+	@Override
+	public void update(UrlManage urlManage) {
+		Map<String, List<UrlManage>> urlMap = instance.getMap("urlMap");
+		if(urlMap.get("url") != null){
+			urlMap.remove("url");
+		}
+		urlManageMapper.update(urlManage);
+	}
+
+	@Override
+	public List<UrlManage> findUsualUrl() {
+		List<UrlManage> urlManages = urlManageMapper.findUsualUrl();
+		for(UrlManage urlManage :urlManages){
+			urlManage.setName(urlManage.getpName()+"--"+urlManage.getName());
+		}
+		return urlManages;
+	}
 }

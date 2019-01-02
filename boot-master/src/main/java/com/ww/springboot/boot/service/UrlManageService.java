@@ -9,7 +9,7 @@ public interface UrlManageService {
 	
 	List<UrlManage> findAll();
 
-	UrlManage findByPId(Long id);
+	UrlManage findById(Long id);
 
 	void insert(UrlManage urlManage);
 
@@ -17,4 +17,7 @@ public interface UrlManageService {
 
 	void updateClickTimes(Long id);
 
+	void update(UrlManage urlManage);
+
+	List<UrlManage> findUsualUrl();
 }

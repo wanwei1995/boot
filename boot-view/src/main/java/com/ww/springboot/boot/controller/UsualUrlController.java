@@ -26,7 +26,10 @@ public class UsualUrlController {
 	public String usualUrl(ModelMap map){
 		
 		List<UrlManage> urlManageList = urlManageService.findUsualUrl();
+		
+		List<UrlManage> urlManageOperateList = urlManageService.findUsualUrlByOperateTime();
 		map.addAttribute("urlManageList", urlManageList);
+		map.addAttribute("urlManageOperateList", urlManageOperateList);
 	    return "url/usual";
 	}
 }

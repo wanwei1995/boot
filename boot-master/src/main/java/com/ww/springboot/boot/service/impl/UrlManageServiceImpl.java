@@ -40,11 +40,9 @@ public class UrlManageServiceImpl implements UrlManageService{
 
 	@Override
 	public void insert(UrlManage urlManage) {
-		Map<String, List<UrlManage>> urlMap = instance.getMap("urlMap");
-		if(urlMap.get("url") != null){
-			urlMap.remove("url");
-		}
+		clearCache();
 		urlManage.setCreateTime(new Date());
+		urlManage.setOperateTime(new Date());
 		urlManageMapper.insert(urlManage);
 		
 	}
@@ -57,16 +55,20 @@ public class UrlManageServiceImpl implements UrlManageService{
 
 	@Override
 	public void updateClickTimes(Long id) {
-		urlManageMapper.updateClickTimes(id);
+		urlManageMapper.updateClickTimes(new Date(),id);
 		
 	}
+	
+	@Override
+	public void updateOperateTime(Long id) {
+		urlManageMapper.updateOperateTime(new Date(),id);
+		
+	}
+	
 
 	@Override
 	public void update(UrlManage urlManage) {
-		Map<String, List<UrlManage>> urlMap = instance.getMap("urlMap");
-		if(urlMap.get("url") != null){
-			urlMap.remove("url");
-		}
+		clearCache();
 		urlManageMapper.update(urlManage);
 	}
 
@@ -78,4 +80,40 @@ public class UrlManageServiceImpl implements UrlManageService{
 		}
 		return urlManages;
 	}
+
+	@Override
+	public void clearCache() {
+		Map<String, List<UrlManage>> urlMap = instance.getMap("urlMap");
+		if(urlMap.get("url") != null){
+			urlMap.remove("url");
+		}
+	}
+
+	@Override
+	public List<UrlManage> findUsualUrlByOperateTime() {
+		List<UrlManage> urlManages = urlManageMapper.findUsualUrlByOperateTime();
+		for(UrlManage urlManage :urlManages){
+			urlManage.setName(urlManage.getpName()+"--"+urlManage.getName());
+		}
+		return urlManages;
+	}
+
+	@Override
+	public void delete(Long id) {
+		clearCache();
+		urlManageMapper.delete(id);
+	}
+
+	@Override
+	public int selectById(Long id) {
+		// TODO Auto-generated method stub
+		return urlManageMapper.selectById(id);
+	}
+
+	@Override
+	public Long selectIdByPId(Long pId) {
+		// TODO Auto-generated method stub
+		return urlManageMapper.selectIdByPId(pId);
+	}
+	
 }

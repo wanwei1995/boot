@@ -27,8 +27,18 @@
 			</ul>
 		</div>
 		<div class="column" style="background-color: #FC9D99; height: 1000px">
-			<p>待定</p>
-
+			<p>最近操作时间排序</p>
+           <ul th:if="${urlManageList}">
+                <li th:each="urlManage : ${urlManageOperateList}" style="height: 130px;list-style: none">
+                    <div class="ui compact menu">
+                        <a class="item">
+                            <button class="ui white button" th:value="${urlManage.url}"
+                                th:id="${urlManage.id}" th:text="${urlManage.name}"
+                                type="button" onclick="jump(this)"></button>
+                        </a>
+                    </div>
+                </li>
+            </ul>
 		</div>
 	</div>
 

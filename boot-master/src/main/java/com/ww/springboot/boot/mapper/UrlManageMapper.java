@@ -1,9 +1,12 @@
 package com.ww.springboot.boot.mapper;
 
+import java.util.Date;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -20,10 +23,10 @@ public interface UrlManageMapper {
 	public UrlManage findById(Long id);
 
 	@Insert("<script>"
-			+ "insert into md_url (id,p_id,name"
+			+ "insert into md_url (id,p_id,name,create_time,operate_time"
 			+ "<if test=\"url != null and url != '' \"> ,url</if>" 
 			+ ") values(#{id},#{pId},"
-			+ "#{name}"
+			+ "#{name},#{createTime},#{operateTime}"
 			+ "<if test=\"url != null and url != '' \"> ,#{url}</if>" 
 			+ ")"
 			+ "</script>")
@@ -33,8 +36,11 @@ public interface UrlManageMapper {
 	public int selectNumByPId(Long pId);
 
 	
-	@Update(" update md_url set click_times = click_times +1 where id = #{id}")
-	public void updateClickTimes(Long id);
+	@Update(" update md_url set click_times = click_times +1,operate_time = #{operateTime} where id = #{id}")
+	public void updateClickTimes(@Param("operateTime") Date operateTime,@Param("id") Long id);
+	
+	@Update(" update md_url set operate_time = #{operateTime} where id = #{id}")
+	public void updateOperateTime(@Param("operateTime") Date operateTime,@Param("id") Long id);
 
 	
 	@Update(" update md_url set name = #{name},url = #{url} where id = #{id}")
@@ -44,4 +50,19 @@ public interface UrlManageMapper {
 			"(select id,name from md_url) t2 where t2.id = md_url.p_id" + 
 			" order by click_times desc limit 10")
 	public List<UrlManage> findUsualUrl();
+	
+	@Select("select md_url.id ,t2.name pName,md_url.name,url ,click_times clickTimes from md_url," + 
+			"(select id,name from md_url) t2 where t2.id = md_url.p_id" + 
+			" order by operate_time desc limit 3")
+	public List<UrlManage> findUsualUrlByOperateTime();
+
+	@Delete("delete from md_url where id = #{id}")
+	public void delete(Long id);
+
+	@Select("select count(*) from md_url where id = #{id}")
+	public int selectById(Long id);
+
+	@Select("Select id from md_url where p_id = #{pId} ORDER BY id DESC LIMIT 1")
+	public Long selectIdByPId(Long pId);
+	
 }

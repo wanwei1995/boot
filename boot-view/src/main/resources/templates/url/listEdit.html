@@ -18,6 +18,8 @@
 <body>
 	<div class="ui two column doubling stackable grid container">
 		<div class="column" style="background-color: #AEDD81">
+			<p>导航栏</p>
+			<p>一级目录1~9 二级目录 10~19 三级目录 1000~1999 四级目录 100000~199999</p>
 			<div class="ui container">
 				<fieldset
 					style="width: 540px; height: 1050px; border: 1px solid; margin-top: 10px; border-color: #74B2E2; border-radius: 6px 6px 6px 6px">
@@ -46,6 +48,16 @@
 					</div>
 				</form>
 			</div>
+			<div class="fields">
+				<button class="ui twitter button" type="button" onclick="addFirst()">
+					<i class="twitter icon"></i>添加一级目录
+				</button>
+
+				<button class="ui twitter button" type="button"
+					onclick="clearCache()">
+					<i class="twitter icon"></i>清缓存
+				</button>
+			</div>
 		</div>
 	</div>
 </body>
@@ -58,7 +70,8 @@ var setting = {
             enable : false
         },
         edit: {
-            enable: false,
+            enable: true,
+            showRemoveBtn: showRemoveBtn
         },
         data : {
             simpleData : {
@@ -66,13 +79,16 @@ var setting = {
             }
         },
         callback: {
-            beforeMouseDown: beforeMouseDown
+            onRightClick: onRightClick,
+            beforeMouseDown: beforeMouseDown,
+            beforeEditName: beforeEditName,
+            beforeRemove: beforeRemove
         }
     };
 $(function() {
     var zNodes;
     $.ajax({
-        url : "url/list",
+        url : "urlEdit/list",
         type : "POST",
         cache : false,
         success : function(data) {
@@ -86,6 +102,57 @@ $(function() {
     });
 })
 
+function showRemoveBtn(treeId, treeNode) {
+            return !treeNode.isParent;
+        }
+
+function beforeRemove(treeId, treeNode) {
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+            zTree.selectNode(treeNode);
+            	var id = treeNode.id;
+            	$.ajax({
+                    url : "urlEdit/delete",
+                    type : "POST",
+                    data : {id},
+                    cache : false,
+                    success : function(data) {
+                   
+                    },
+                    error : function() {
+                        alert("error");
+                    }
+                });
+            	return true
+        }
+        
+function beforeEditName(treeId, treeNode) {
+    var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+    zTree.selectNode(treeNode);
+    setTimeout(function() {
+        	var id = treeNode.id;
+            $.ajax({
+                type : "GET",
+                url : "urlEdit/updatePre",
+                cache : false,
+                data : {id},
+                timeout : 600000,
+                success : function(data) {
+                    layer.open({
+                        type : 1,
+                        title : '修改导航信息',
+                        skin : 'layui-layer-rim', //样式类名
+                        anim : 2,
+                        area : [ '800px', '400px' ], //宽高
+                        shadeClose : false, //开启遮罩关闭
+                        content : data
+                    });
+                }
+            }); 
+    }, 0);
+    return false;
+}
+        
+  
 var nodeList = [];
 var nodeParent = [];
 var nodeParentOld = [];
@@ -182,23 +249,107 @@ function updateNodes(highlight) {
 function getFontCss(treeId, treeNode) {
     return (!!treeNode.highlight) ? {color:"#A60000", "font-weight":"bold"} : {color:"#333", "font-weight":"normal"};
 }
-
+function onRightClick(event, treeId, treeNode) {
+     //右键添加子节点
+     var id = treeNode.id;
+	$.ajax({
+        type : "GET",
+        url : "urlEdit/right",
+        cache : false,
+        data : {id},
+        timeout : 600000,
+        success : function(data) {
+            layer.open({
+                type : 1,
+                title : '右键添加子节点',
+                skin : 'layui-layer-rim', //样式类名
+                anim : 2,
+                area : [ '800px', '400px' ], //宽高
+                shadeClose : false, //开启遮罩关闭
+                content : data
+            });
+        },
+    }); 
+}
 function beforeMouseDown(treeId, treeNode) {
-    if(treeNode.url == null || treeNode.url == ''){
-    	//将此节点展开
-       zTree = $.fn.zTree.getZTreeObj("treeDemo");
-       node = zTree.getNodesByParam("id", treeNode.id);
-       zTree.expandNode(node[0], true, null, null, null); 
-       return;
-    }
-        var id = treeNode.id;
-       $.ajax({
-           type : "GET",
-           url : "url/click",
-           cache : false,
-           data : {id},
-       }); 
+	if(treeNode.url == null || treeNode.url == ''){
+	   return;
+	}
+	    var id = treeNode.id;
+	   $.ajax({
+	       type : "GET",
+	       url : "urlEdit/click",
+	       cache : false,
+	       data : {id},
+	   }); 
 }
 
+function update() {
+	var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+	nodes = zTree.getSelectedNodes(),
+	treeNode = nodes[0];
+	if (nodes.length == 0) {
+	    alert("请先选择一个节点");
+	    return;
+	}
+	var id = treeNode.id;
+	$.ajax({
+        type : "GET",
+        url : "urlEdit/updatePre",
+        cache : false,
+        data : {id},
+        timeout : 600000,
+        success : function(data) {
+            layer.open({
+                type : 1,
+                title : '修改导航信息',
+                skin : 'layui-layer-rim', //样式类名
+                anim : 2,
+                area : [ '800px', '400px' ], //宽高
+                shadeClose : false, //开启遮罩关闭
+                content : data
+            });
+        }
+    }); 
+	
+}
+
+function addFirst() {
+    $.ajax({
+        type : "GET",
+        url : "urlEdit/addFirst",
+        cache : false,
+        timeout : 600000,
+        success : function(data) {
+        	alert("添加成功，请刷新");
+        	window.location.reload();
+        }
+    }); 
+    
+}
+
+function clearCache() {
+    $.ajax({
+        type : "GET",
+        url : "urlEdit/clearCache",
+        cache : false,
+        timeout : 600000,
+        success : function(data) {
+            alert("已清空，请刷新");
+            window.location.reload();
+        }
+    }); 
+    
+}
+
+
+
+
+
+function clearIs() {
+    $("input").each(function() {
+        var value = $(this).val("");
+    });
+}
 </script>
 </html>

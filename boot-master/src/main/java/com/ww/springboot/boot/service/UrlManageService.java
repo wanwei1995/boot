@@ -16,8 +16,20 @@ public interface UrlManageService {
 	int selectNumByPId(Long pId);
 
 	void updateClickTimes(Long id);
+	
+	void updateOperateTime(Long id);
 
 	void update(UrlManage urlManage);
 
 	List<UrlManage> findUsualUrl();
+	
+	List<UrlManage> findUsualUrlByOperateTime();
+
+	void clearCache();
+
+	void delete(Long id);
+
+	int selectById(Long id);
+
+	Long selectIdByPId(Long pId);
 }

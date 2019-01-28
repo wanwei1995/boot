@@ -34,7 +34,7 @@ public class UrlManage implements Serializable{
 	
 	private int clickTimes;
 	
-	
+	private Date operateTime;
 	
 	public int getClickTimes() {
 		return clickTimes;
@@ -111,5 +111,13 @@ public class UrlManage implements Serializable{
 
 	public void setpName(String pName) {
 		this.pName = pName;
+	}
+
+	public Date getOperateTime() {
+		return operateTime;
+	}
+
+	public void setOperateTime(Date operateTime) {
+		this.operateTime = operateTime;
 	}
 }

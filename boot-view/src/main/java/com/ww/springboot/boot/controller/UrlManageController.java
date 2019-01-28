@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.ww.springboot.boot.model.UrlManage;
 import com.ww.springboot.boot.service.UrlManageService;
@@ -37,19 +36,6 @@ public class UrlManageController {
 		List<UrlManage> urls = urlManageService.findAll();
 		return JacksonUtil.toJSon(urls);
 	}
-	/**
-	 * @author wanwei
-	 * @TODO   添加子节点
-	 * @date: 2018年11月30日 下午4:15:27
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping("/right")
-	public String right(String id, ModelMap map){
-		map.addAttribute("pId", id);
-	    return "url/addSon";
-	
-	}
 	
 	/**
 	 * @author wanwei
@@ -63,74 +49,5 @@ public class UrlManageController {
 	public void click(String id, ModelMap map){
 	//
 		urlManageService.updateClickTimes(Long.valueOf(id));
-	}
-	
-	/**
-	 * @author wanwei
-	 * @TODO   点击次数
-	 * @date: 2018年11月30日 下午4:15:27
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping("/addFirst")
-	@ResponseBody
-	public ModelAndView addFirst(){
-		int count = urlManageService.selectNumByPId(0L);
-		UrlManage urlManage = new UrlManage();
-		urlManage.setName("一级目录");
-		urlManage.setId(Long.valueOf(count+1));
-		urlManage.setpId(0L);
-		urlManageService.insert(urlManage);
-		ModelAndView view = new ModelAndView("redirect:/url");
-	    return view;
-	}
-	
-	/**
-	 * @author wanwei
-	 * @TODO   点击次数
-	 * @date: 2018年11月30日 下午4:15:27
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping("/updatePre")
-	public String updatePre(String id, ModelMap map){
-		UrlManage urlManage = urlManageService.findById(Long.valueOf(id));
-		map.addAttribute("urlManage",urlManage);
-		return "url/update";
-	}
-	
-	/**
-	 * @author wanwei
-	 * @TODO   点击次数
-	 * @date: 2018年11月30日 下午4:15:27
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping("/update")
-	public ModelAndView update(UrlManage urlManage, ModelMap map){
-		urlManageService.update(urlManage);
-		ModelAndView view = new ModelAndView("redirect:/url");
-	    return view;
-	}
-	
-	@RequestMapping("/addSon")
-	public ModelAndView addSon(UrlManage urlManage){
-		//根据PId生成id
-		Long pId = urlManage.getpId();
-		//查询父id下有多少个字节点
-		int count = urlManageService.selectNumByPId(pId);
-		//一级目录每个子节点为10个
-		if(pId<10){
-			urlManage.setId(pId*10+count);
-		}else if(pId<100){
-			//二级目录每个子节点为100个
-			urlManage.setId(pId*100+count);
-		}else if(pId<10000){
-			//三级目录每个子节点为100个
-			urlManage.setId(pId*100+count);
-		}
-		urlManageService.insert(urlManage);
-		ModelAndView view = new ModelAndView("redirect:/url");
-	    return view;
 	}
 }

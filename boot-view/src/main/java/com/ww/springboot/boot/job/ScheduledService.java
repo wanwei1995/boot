@@ -18,9 +18,6 @@ import com.ww.springboot.boot.service.TempSoService;
 public class ScheduledService {
 	
     private Logger logger;
-    
-    @Autowired
-	private TempSoService tempSoService;
 	
 	public ScheduledService() {
 		logger = Logger.getLogger(SendWeeklySchedule.class);
@@ -35,6 +32,6 @@ public class ScheduledService {
 	//每天的整点触发
 	@Scheduled(cron = "0 0 * * * *")
 	public void makeData(){
-		tempSoService.makeData();
+		System.out.println("整点播报");
 	}
 }

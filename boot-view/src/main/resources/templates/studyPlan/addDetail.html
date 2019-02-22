@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="menu/import::semantic">
+<meta charset="UTF-8" />
+<title id="title">学习内容添加页面</title>
+</head>
+<body>
+	<div class="ui modal" id="addDiv" style="overflow: auto;">
+		<form th:action="@{/studyPlan/addDetail}" id="filterForm" class="ui form"
+			method="post" th:fragment="addContent">
+			<div style = "text-align:center">
+			<h3 th:text = "${studyName}"></h3>
+			</div>
+			
+			
+            <div class="field">
+            <input type="text" th:value = "${studyName}" name="studyName" style = "display :none"/>
+                <label>此次学习内容：</label> <textarea name="studyDetail" required />
+            </div>
+			<div style="float: left; margin-top: 50px">
+				<div class="ui buttons">
+					<button class="ui red button" type="submit">保存</button>
+				</div>
+				<div class="ui buttons">
+					<button class="ui red button" type="button" onclick="clearIs()">重置
+					</button>
+				</div>
+			</div>
+			<script type="text/javascript">
+				$(function() {
+					$(".ui.dropdown").dropdown();
+				})
+			</script>
+		</form>
+	</div>
+</body>
+
+</html>

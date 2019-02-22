@@ -55,6 +55,7 @@
       <li class="layui-nav-item">
         <a href="javascript:;">我的</a>
         <dl class="layui-nav-child">
+        <dd><a id = "studyPlan" class="item" th:onclick="'load(\'' + @{/studyPlan} + '\',this);'" target="_blank">学习规划</a></dd>
           <dd><a id = "email" class="item" th:onclick="'load(\'' + @{/email} + '\',this);'" target="_blank">发邮件</a></dd>
           <dd><a id = "romantic" class="item" th:onclick="'load(\'' + @{/romantic} + '\',this);'" target="_blank">浪漫动图</a></dd>
           <dd><a id = "dynamicText" class="item" th:onclick="'load(\'' + @{/dynamicText} + '\',this);'" target="_blank">动态文字</a></dd>

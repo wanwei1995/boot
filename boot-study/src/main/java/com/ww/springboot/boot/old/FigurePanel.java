@@ -67,6 +67,10 @@ public static void main(String []args){
 	}
 
 class diagram extends JPanel{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	int a[]={10,10,40,40};
 	int b[]={10,40,40,10};
 	private int type=0;

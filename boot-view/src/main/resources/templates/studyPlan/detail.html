@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="menu/import::semantic">
+<title id="title">学习内容</title>
+</head>
+<body>
+	<div style="margin-left: 22px;">
+		<div class="ui three column grid" style="margin-top: 0.6rem;">
+			<div class="column" th:each="studyPlanDetail : ${studyPlanDetailList}">
+				<div class="ui raised card" style="Float: left;background-color:#C7EDCC">
+					<div class="content">
+						<div class="header" th:text="${studyPlanDetail.studyName}"></div>
+						<div class="meta"
+							th:text="${#dates.format(studyPlanDetail.createTime,'yyyy-MM-dd HH:mm:ss')}"></div>
+
+						<div class="description" th:text="${studyPlanDetail.studyDetail}" style="background-color:#C7EDCC"></div>
+					</div>
+					<div class="ui divider"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

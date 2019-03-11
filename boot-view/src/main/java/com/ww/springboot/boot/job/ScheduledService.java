@@ -3,14 +3,12 @@ package com.ww.springboot.boot.job;
 import java.util.Date;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.ww.springboot.boot.job2.SendWeeklySchedule;
-import com.ww.springboot.boot.service.TempSoService;
 
 @EnableScheduling
 @Component

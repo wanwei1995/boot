@@ -13,6 +13,11 @@
 			<groupId>com.springboot.ww</groupId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<!-- <dependency>
+            <artifactId>boot-job</artifactId>
+            <groupId>com.springboot.ww</groupId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency> -->
 
 		<!--分页 -->
 		<dependency>

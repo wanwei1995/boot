@@ -8,8 +8,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.ww.springboot.boot.job2.SendWeeklySchedule;
-
 @EnableScheduling
 @Component
 @Async
@@ -18,7 +16,7 @@ public class ScheduledService {
     private Logger logger;
 	
 	public ScheduledService() {
-		logger = Logger.getLogger(SendWeeklySchedule.class);
+		
 	}
 	//每个星期五的18点整触发
 	@Scheduled(cron = "0 0 18 ? * FRI")

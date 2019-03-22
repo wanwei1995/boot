@@ -15,8 +15,12 @@
 					<button class="ui red button" type="button" onclick="addDetail()">
 						添加</button>
 				</div>
+				
+				<div class="ui input" style="margin-left : 300px;float :left">
+                   <input  type="text" name="studyName" th:value="${studyName}" oninput="search()">
+                </div>
 
-				<div class="ui fluid search selection dropdown" style="width: 150px ; margin-left : 700px ;float :left">
+				<div class="ui fluid search selection dropdown" style="width: 150px ; margin-left : 200px ;float :left">
 					<input type="hidden" name="sort" th:value="${sort}">
 					<div class="default text">--请选择--</div>
 					<i class="dropdown icon"></i>
@@ -181,6 +185,17 @@
 			}
 		});
 	}
+	
+	function search(){
+		 setTimeout(function () {
+			 $("#form").submit();
+         },500)
+		
+	}
+	
+	/* function onKeyPress(){
+		$("#form").submit();
+	} */
 
 	function sortT(way) {
 		$("#way").val(way);

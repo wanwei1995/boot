@@ -48,5 +48,12 @@ public class StudyPlanServiceImpl implements StudyPlanService{
 		// TODO Auto-generated method stub
 		return mapper.findBySelective(way,sort);
 	}
+	@Override
+	public List<StudyPlan> selectByLikeName(String studyName) {
+		// TODO Auto-generated method stub
+		return mapper.selectByLikeName(studyName);
+	}
+	
+	
 
 }

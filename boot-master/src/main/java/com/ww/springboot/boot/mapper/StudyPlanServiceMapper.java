@@ -29,4 +29,7 @@ public interface StudyPlanServiceMapper {
 
     @SelectProvider(type = StudyPlanSqlProvider.class, method = "findBySelective")
 	List<StudyPlan> findBySelective(String way, String sort);
+    
+    @Select("select study_name studyName,schedule from life_study_plan where study_name like CONCAT('%',#{studyName},'%')")
+    List<StudyPlan> selectByLikeName(String studyName);
 }

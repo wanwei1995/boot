@@ -10,6 +10,8 @@ public interface StudyPlanService {
 	List<StudyPlan> findAll();
 	
 	StudyPlan selectByName(String studyName);
+	
+	List<StudyPlan> selectByLikeName(String studyName);
 
 	void update(StudyPlan studyPlan);
 

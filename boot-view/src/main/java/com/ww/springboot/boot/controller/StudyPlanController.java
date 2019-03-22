@@ -41,8 +41,19 @@ public class StudyPlanController {
 	 * @return
 	 */
 	@RequestMapping("")
-	public String list(ModelMap map,String way,String sort) {
+	public String list(ModelMap map,String way,String sort,String studyName) {
 		List<StudyPlan> studyPlans = new ArrayList<>();
+		
+		if(!StringUtils.isEmpty(studyName)){
+			studyPlans = studyPlanService.selectByLikeName(studyName);
+			map.addAttribute("way", "1");
+			map.addAttribute("sort", "0");
+			map.addAttribute("studyName", studyName);
+			map.addAttribute("studyPlans", studyPlans);
+			return "studyPlan/list";
+		}
+		
+		
 		if(StringUtils.isEmpty(way) || StringUtils.isEmpty(sort)){
 			//默认以学习时间 倒序排列
 			way = "1";

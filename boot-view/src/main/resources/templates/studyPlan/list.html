@@ -17,7 +17,7 @@
 				</div>
 				
 				<div class="ui input" style="margin-left : 300px;float :left">
-                   <input  type="text" name="studyName" th:value="${studyName}" oninput="search()">
+                   <input  type="text" name="studyName" id="studyName" th:value="${studyName}" oninput="search()">
                 </div>
 
 				<div class="ui fluid search selection dropdown" style="width: 150px ; margin-left : 200px ;float :left">
@@ -97,11 +97,15 @@
 	$(function() {
 		$(".ui.dropdown").dropdown();
 
-		var aDiv = document.getElementsByClassName("ui indicating progress"); //获取文档中class为“test”的所有元素
+		var aDiv = document.getElementsByClassName("ui indicating progress"); //获取文档中class为  ?? 的所有元素
 
 		for (var i = 0; i < aDiv.length; i++) {
 			$("#" + aDiv[i].id).progress();
 		}
+		var t = $('#studyName').val();
+		$('#studyName').val("");
+		$('#studyName').val(t);
+		$('#studyName').focus();
 	})
 
 	function addDetail() {

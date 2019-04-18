@@ -18,6 +18,9 @@ public class WanweiAspect {
 	@Around("exceptionAroundPointCut()")
 	public void point(ProceedingJoinPoint pjp) throws Throwable {
 		
+		//获取方法上注解值
+		
+		//获取方法参数组
 		try {
 			System.out.println("---- 切面start ---");
 			pjp.proceed();

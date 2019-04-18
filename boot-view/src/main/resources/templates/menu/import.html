@@ -1,14 +1,29 @@
 <!doctype html>
 <html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org">
 <body class="layui-layout-body">
-<div th:fragment="semantic">
- <div class="semantic">
-<link rel="stylesheet" href="semantic/semantic.min.css"/>
-<script src="js/jquery.min.js"></script>
-<script src="semantic/semantic.min.js"></script>
-<script src="js/jquery.js"></script>
-<script src="layer/layer.js"></script>
-</div>
-</div>
+	<div th:fragment="semantic">
+
+		<div class="semantic">
+			<link rel="stylesheet" href="semantic/semantic.min.css" />
+			<link rel="stylesheet" href="layui/css/layui.css"/>
+			<script src="js/jquery.min.js"></script>
+			<script src="semantic/semantic.min.js"></script>
+			<script src="js/jquery.js"></script>
+			<script src="layer/layer.js"></script>
+			<script src="layui/layui.js"></script>
+            <script th:src="@{/js/menuLoad.js}"></script>
+		</div>
+
+	</div>
+
+
+
+
+	<div th:fragment="footer" class="ui fixed inverted red menu">
+		<div class="layui-footer">
+			<!-- 底部固定区域 -->
+			ww.com.cn ...功能管理系统
+		</div>
+	</div>
 </body>
 </html>

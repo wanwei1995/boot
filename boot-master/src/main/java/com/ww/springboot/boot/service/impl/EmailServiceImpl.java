@@ -25,7 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sun.mail.util.MailSSLSocketFactory;
-import com.ww.springboot.boot.common.ConfigEnum;
+import com.ww.springboot.boot.enumeration.ConfigEnum;
 import com.ww.springboot.boot.exception.BusinessException;
 import com.ww.springboot.boot.service.ConfigService;
 import com.ww.springboot.boot.service.EmailService;

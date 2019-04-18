@@ -20,7 +20,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
-import com.ww.springboot.boot.common.YesOrNo;
+import com.ww.springboot.boot.enumeration.YesOrNo;
 import com.ww.springboot.boot.exception.BusinessException;
 import com.ww.springboot.boot.system.model.Permission;
 import com.ww.springboot.boot.system.model.Role;

@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/boot-common/boot-common.iml" filepath="$PROJECT_DIR$/boot-common/boot-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/boot-job/boot-job.iml" filepath="$PROJECT_DIR$/boot-job/boot-job.iml" />
       <module fileurl="file://$PROJECT_DIR$/boot-master/boot-master.iml" filepath="$PROJECT_DIR$/boot-master/boot-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/boot-parent.iml" filepath="$PROJECT_DIR$/boot-parent.iml" />
       <module fileurl="file://$PROJECT_DIR$/boot-study/boot-study.iml" filepath="$PROJECT_DIR$/boot-study/boot-study.iml" />

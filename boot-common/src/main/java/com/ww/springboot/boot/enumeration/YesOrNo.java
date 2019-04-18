@@ -1,4 +1,4 @@
-package com.ww.springboot.boot.common;
+package com.ww.springboot.boot.enumeration;
 
 /**
  * 是否

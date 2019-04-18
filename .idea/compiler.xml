@@ -6,12 +6,16 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="boot-common" />
+        <module name="boot-job" />
         <module name="boot-master" />
         <module name="boot-study" />
         <module name="boot-view" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="8">
+      <module name="boot-common" target="1.8" />
+      <module name="boot-job" target="1.8" />
       <module name="boot-master" target="1.8" />
       <module name="boot-parent" target="1.8" />
       <module name="boot-study" target="1.8" />

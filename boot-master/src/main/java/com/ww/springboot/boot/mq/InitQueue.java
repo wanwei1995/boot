@@ -1,3 +1,4 @@
+/*
 package com.ww.springboot.boot.mq;
 
 import javax.annotation.PostConstruct;
@@ -16,9 +17,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+*/
 /**
  * 初始化队列跟交换机，并绑定
- */
+ *//*
+
 @Configuration
 public class InitQueue{
 
@@ -40,9 +43,11 @@ public class InitQueue{
         }
     }
 
-    /**
+    */
+/**
      * 设置转换器
-     */
+     *//*
+
     @Bean
     public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
         RabbitTemplate template = new RabbitTemplate(connectionFactory);
@@ -61,3 +66,4 @@ public class InitQueue{
         return factory;
     }
 }
+*/

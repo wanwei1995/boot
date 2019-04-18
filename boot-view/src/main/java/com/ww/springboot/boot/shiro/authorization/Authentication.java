@@ -34,6 +34,8 @@ public class Authentication {
     public void login(String name, String password) {
         String md5password = MD5Util.md5Hex(password).toLowerCase();
         Subject currentUser = SecurityUtils.getSubject();
+        //session永不过期
+        currentUser.getSession().setTimeout(-1000l);
         if (!currentUser.isAuthenticated()) {
             UsernamePasswordToken token = new UsernamePasswordToken(name, md5password);
             token.setRememberMe(false);

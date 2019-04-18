@@ -16,11 +16,11 @@
 						添加</button>
 				</div>
 				
-				<div class="ui input" style="margin-left : 300px;float :left">
+				<div class="ui input" style="margin-left : 350px;float :left">
                    <input  type="text" name="studyName" id="studyName" th:value="${studyName}" oninput="search()">
                 </div>
 
-				<div class="ui fluid search selection dropdown" style="width: 150px ; margin-left : 200px ;float :left">
+				<div class="ui fluid search selection dropdown" style="width: 150px ; margin-left : 250px ;float :left">
 					<input type="hidden" name="sort" th:value="${sort}">
 					<div class="default text">--请选择--</div>
 					<i class="dropdown icon"></i>
@@ -41,8 +41,8 @@
 
 			</form>
 
-			<div th:if="${studyPlans}">
-				<div th:each="studyPlan : ${studyPlans}" style="margin-top: 20px">
+			<div th:if="${studyPlans}"style="margin-top: 20px">
+				<div th:each="studyPlan : ${studyPlans}" style="height: 120px">
 					<div class="ui indicating progress" th:id="${studyPlan.studyName}"
 						th:data-percent="${studyPlan.schedule}">
 						<div class="bar"></div>
@@ -52,14 +52,14 @@
 								<a class="item">
 									<button class="ui white button"
 										th:text="${studyPlan.studyName}"
-										th:onclick="'detail(\'' + ${studyPlan.studyName} + '\',1);'"></button>
+										th:onclick="'detail(\'' + ${studyPlan.studyName} + '\');'"></button>
 									<div class="floating ui red label"
 										th:text="${studyPlan.schedule}" />
 								</a>
 							</div>
 						</div>
 					</div>
-					<div class="ignored">
+					<div class="ignored" style="float :left;display: none" th:id = "${studyPlan.studyName}+'add'">
 						<div class="ui icon buttons">
 							<div class="medium ui basic green button icon">
 								<i class="plus icon"
@@ -86,11 +86,18 @@
 
 						</div>
 					</div>
+					<div class="ui icon buttons" style="float: right">
+
+						<div class="huge ui basic green button icon">
+							<i class="angle down icon" id="show_i"
+							   th:onclick="'hide(\'' + ${studyPlan.studyName} + '\');'"></i>
+						</div>
+
+					</div>
 				</div>
 			</div>
 
-
-		</div>
+			</div>
 	</div>
 </body>
 <script type="text/javascript">
@@ -189,8 +196,22 @@
 			}
 		});
 	}
+
+	function hide(studyName){
+	    if($('#'+studyName+'add').is(':hidden')){
+            $('#show_i').removeClass('down').addClass('up');
+            $('#'+studyName+'add').show();
+		}else{
+            $('#show_i').removeClass('up').addClass('down');
+            $('#'+studyName+'add').hide();
+		}
+
+	}
 	
 	function search(){
+	    if($('#studyName').val() == ""){
+	        return;
+		}
 		 setTimeout(function () {
 			 $("#form").submit();
          },500)

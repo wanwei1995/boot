@@ -5,6 +5,7 @@
 <title>功能管理系统</title>
 </head>
 <body>
+<div id="container" style="position: fixed;top: 0;left: 0;width: 100%;height: 100%;"></div>
 	<div class="ui middle aligned center aligned grid" style = "width :380px;position: absolute;left:40%;top:15%;">
 		<div class="column">
 			<div class="ui items">
@@ -44,6 +45,7 @@
 		</div>
 	</div>
 </body>
+<script type="text/javascript" th:src="@{/js/jquery.particleground.min.js}"></script>
 <script type="text/javascript">
   $(function() {
     var self = window;
@@ -51,6 +53,18 @@
     if (top != self) {
       top.location = self.location;
     }
+
+      //初始化页面背景
+      $('#container').particleground({
+          dotColor: 'rgba(61,161,205,.1)',
+          lineColor: 'rgba(61,161,205,.3)',
+          minSpeedX: 0.1,
+          maxSpeedX: 0.5,
+          minSpeedY: 0.1,
+          maxSpeedY: 0.5,
+          density: 30000,
+          proximity: 200
+      });
   });
 </script>
 </html>

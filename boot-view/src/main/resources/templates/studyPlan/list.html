@@ -209,9 +209,10 @@
 	}
 	
 	function search(){
-	    if($('#studyName').val() == ""){
-	        return;
+		if ($('#studyName').val().match(/^[ ]*$/)) {
+			$('#studyName').val("")
 		}
+
 		 setTimeout(function () {
 			 $("#form").submit();
          },500)

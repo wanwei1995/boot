@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1a456194-9970-48b7-ba63-ea874d38eef0" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boot-common/boot-common.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/boot-job/boot-job.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/boot-master/boot-master.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/boot-study/boot-study.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/boot-view/boot-view.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/boot-study/src/main/java/com/ww/springboot/boot/Test2.java" beforeDir="false" afterPath="$PROJECT_DIR$/boot-study/src/main/java/com/ww/springboot/boot/Test2.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/boot-study/target/" />
@@ -24,11 +18,29 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="DefaultGradleProjectSettings">
-    <option name="testRunner" value="GRADLE" />
-    <option name="delegatedBuild" value="true" />
+    <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/boot-view/src/main/resources/sql/190722160732.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="193">
+              <caret line="427" column="3146" selection-start-line="427" selection-start-column="3146" selection-end-line="427" selection-end-column="3177" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/boot-study/src/main/java/com/ww/springboot/boot/Test2.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="506">
+              <caret line="23" column="12" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -43,6 +55,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/boot-view/src/main/resources/application-test.properties" />
+        <option value="$PROJECT_DIR$/boot-study/src/main/java/com/ww/springboot/boot/Test2.java" />
       </list>
     </option>
   </component>
@@ -66,9 +79,9 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="19" />
-    <option name="y" value="71" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="20" />
+    <option name="y" value="20" />
     <option name="width" value="1400" />
     <option name="height" value="820" />
   </component>
@@ -77,6 +90,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -87,25 +102,25 @@
             <path>
               <item name="boot-parent" type="b2602c69:ProjectViewProjectNode" />
               <item name="boot" type="462c0819:PsiDirectoryNode" />
-              <item name="boot-view" type="462c0819:PsiDirectoryNode" />
+              <item name="boot-study" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="boot-parent" type="b2602c69:ProjectViewProjectNode" />
               <item name="boot" type="462c0819:PsiDirectoryNode" />
-              <item name="boot-view" type="462c0819:PsiDirectoryNode" />
+              <item name="boot-study" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="boot-parent" type="b2602c69:ProjectViewProjectNode" />
               <item name="boot" type="462c0819:PsiDirectoryNode" />
-              <item name="boot-view" type="462c0819:PsiDirectoryNode" />
+              <item name="boot-study" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="boot-parent" type="b2602c69:ProjectViewProjectNode" />
               <item name="boot" type="462c0819:PsiDirectoryNode" />
-              <item name="boot-view" type="462c0819:PsiDirectoryNode" />
+              <item name="boot-study" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
@@ -113,7 +128,7 @@
             <path>
               <item name="boot-parent" type="b2602c69:ProjectViewProjectNode" />
               <item name="boot" type="462c0819:PsiDirectoryNode" />
-              <item name="boot-view" type="462c0819:PsiDirectoryNode" />
+              <item name="boot-study" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
@@ -122,7 +137,7 @@
             <path>
               <item name="boot-parent" type="b2602c69:ProjectViewProjectNode" />
               <item name="boot" type="462c0819:PsiDirectoryNode" />
-              <item name="boot-view" type="462c0819:PsiDirectoryNode" />
+              <item name="boot-study" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
@@ -132,7 +147,7 @@
             <path>
               <item name="boot-parent" type="b2602c69:ProjectViewProjectNode" />
               <item name="boot" type="462c0819:PsiDirectoryNode" />
-              <item name="boot-view" type="462c0819:PsiDirectoryNode" />
+              <item name="boot-study" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
@@ -143,7 +158,7 @@
             <path>
               <item name="boot-parent" type="b2602c69:ProjectViewProjectNode" />
               <item name="boot" type="462c0819:PsiDirectoryNode" />
-              <item name="boot-view" type="462c0819:PsiDirectoryNode" />
+              <item name="boot-study" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
@@ -156,8 +171,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -224,12 +237,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7430000" />
+    <option name="totallyTimeSpent" value="7453000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.254298" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24068768" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -294,7 +308,11 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/boot-view/src/main/resources/sql/190722160732.sql">
-      <provider selected="true" editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="427" column="3146" selection-start-line="427" selection-start-column="3146" selection-end-line="427" selection-end-column="3177" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/boot-view/src/main/resources/templates/menu/menu.html">
       <provider selected="true" editor-type-id="text-editor">
@@ -307,6 +325,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="287">
           <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/boot-study/src/main/java/com/ww/springboot/boot/Test2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="23" column="12" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="12" />
         </state>
       </provider>
     </entry>

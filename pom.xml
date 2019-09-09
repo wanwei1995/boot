@@ -33,12 +33,6 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
-		</dependency>
 		<!-- xlsx -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
@@ -101,6 +95,7 @@
 		<!--sql -->
 		<dependency>
 			<groupId>mysql</groupId>
+			<version>8.0.17</version>
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
 
@@ -129,10 +124,10 @@
 			<version>2.2.2</version>
 		</dependency>
 
-		<dependency>
+		<!--<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-amqp</artifactId>
-		</dependency>
+		</dependency>-->
 		<!--切面 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -143,12 +138,6 @@
 			<groupId>com.github.theborakompanioni</groupId>
 			<artifactId>thymeleaf-extras-shiro</artifactId>
 			<version>2.0.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-core</artifactId>
-			<version>1.3.2</version>
 		</dependency>
 
 		<dependency>

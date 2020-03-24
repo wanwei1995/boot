@@ -9,7 +9,7 @@
     </appender>
 
 <!-- 指定什么日志以及什么级别的日志输出 -->
-   <root level="INFO">
+   <root level="ERROR">
         <appender-ref ref="console" />
     </root>
 </configuration>

@@ -8,15 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ww.springboot.boot.service.Md5Service;
-import com.ww.springboot.boot.service.TempSoService;
 
 //控制台
 @Controller
 @RequestMapping("/console")
 public class ConsoleController {
-	
-	@Autowired
-	private TempSoService tempSoService;
+
 	@Autowired
 	private Md5Service md5Service;
 
@@ -31,7 +28,7 @@ public class ConsoleController {
 		StringBuilder bulid = new StringBuilder("刷新提示：").append("\n");
 		for(int i =0;i<10;i++){
 			Date date1 = new Date();
-			tempSoService.makeData();
+
 			Date date2 = new Date();
 			bulid.append("第").append(i).append("次数据插入时间为").append(date2.getTime() - date1.getTime()).append("\n");
 			System.out.println(date2.getTime() - date1.getTime());
